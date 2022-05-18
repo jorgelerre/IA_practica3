@@ -22,6 +22,39 @@ bool AIPlayer::move(){
 }
 
 void AIPlayer::think(color & c_piece, int & id_piece, int & dice) const{
+    // El siguiente código se proporciona como sugerencia para iniciar la implementación del agente.
+
+    double valor; // Almacena el valor con el que se etiqueta el estado tras el proceso de busqueda.
+    double alpha = menosinf, beta = masinf; // Cotas iniciales de la poda AlfaBeta
+    // Llamada a la función para la poda (los parámetros son solo una sugerencia, se pueden modificar).
+    valor = Poda_AlfaBeta(*actual, jugador, 0, PROFUNDIDAD_ALFABETA, c_piece, id_piece, dice, alpha, beta, ValoracionTest);
+    cout << "Valor MiniMax: " << valor << "  Accion: " << str(c_piece) << " " << id_piece << " " << dice << endl;
+
+    // ----------------------------------------------------------------- //
+
+    // Si quiero poder manejar varias heurísticas, puedo usar la variable id del agente para usar una u otra.
+    switch(id){
+        case 0:
+            thinkAleatorio(c_piece, id_piece, dice);
+            break;
+        case 1:
+            thinkAleatorioMasInteligente(c_piece, id_piece, dice);
+            //valor = Poda_AlfaBeta(*actual, jugador, 0, PROFUNDIDAD_ALFABETA, c_piece, id_piece, dice, alpha, beta, MiValoracion1);
+            break;
+        case 2:
+            thinkFichaMasAdelantada(c_piece, id_piece, dice);
+            //valor = Poda_AlfaBeta(*actual, jugador, 0, PROFUNDIDAD_ALFABETA, c_piece, id_piece, dice, alpha, beta, MiValoracion2);
+            break;
+        case 3:
+            thinkMejorOpcion(c_piece, id_piece, dice);
+            break;
+    }
+    cout << "Valor MiniMax: " << valor << "  Accion: " << str(c_piece) << " " << id_piece << " " << dice << endl;
+
+    
+}
+
+void AIPlayer::thinkAleatorio(color & c_piece, int & id_piece, int & dice) const {
     // IMPLEMENTACIÓN INICIAL DEL AGENTE
     // Esta implementación realiza un movimiento aleatorio.
     // Se proporciona como ejemplo, pero se debe cambiar por una que realice un movimiento inteligente 
@@ -57,35 +90,129 @@ void AIPlayer::think(color & c_piece, int & id_piece, int & dice) const{
         // Si no tengo fichas para el dado elegido, pasa turno (la macro SKIP_TURN me permite no mover).
         id_piece = SKIP_TURN;
     }
-
-    /*
-    // El siguiente código se proporciona como sugerencia para iniciar la implementación del agente.
-
-    double valor; // Almacena el valor con el que se etiqueta el estado tras el proceso de busqueda.
-    double alpha = menosinf, beta = masinf; // Cotas iniciales de la poda AlfaBeta
-    // Llamada a la función para la poda (los parámetros son solo una sugerencia, se pueden modificar).
-    valor = Poda_AlfaBeta(*actual, jugador, 0, PROFUNDIDAD_ALFABETA, c_piece, id_piece, dice, alpha, beta, ValoracionTest);
-    cout << "Valor MiniMax: " << valor << "  Accion: " << str(c_piece) << " " << id_piece << " " << dice << endl;
-
-    // ----------------------------------------------------------------- //
-
-    // Si quiero poder manejar varias heurísticas, puedo usar la variable id del agente para usar una u otra.
-    switch(id){
-        case 0:
-            valor = Poda_AlfaBeta(*actual, jugador, 0, PROFUNDIDAD_ALFABETA, c_piece, id_piece, dice, alpha, beta, ValoracionTest);
-            break;
-        case 1:
-            valor = Poda_AlfaBeta(*actual, jugador, 0, PROFUNDIDAD_ALFABETA, c_piece, id_piece, dice, alpha, beta, MiValoracion1);
-            break;
-        case 2:
-            valor = Poda_AlfaBeta(*actual, jugador, 0, PROFUNDIDAD_ALFABETA, c_piece, id_piece, dice, alpha, beta, MiValoracion2);
-            break;
-    }
-    cout << "Valor MiniMax: " << valor << "  Accion: " << str(c_piece) << " " << id_piece << " " << dice << endl;
-
-    */
 }
 
+
+void AIPlayer::thinkAleatorioMasInteligente(color & c_piece, int & id_piece, int & dice) const {
+    // El color de ficha que se va a mover
+    c_piece = actual->getCurrentColor();
+
+    // Vector que almacenará los dados que se pueden usar para el movimiento
+    vector<int> current_dices;
+    // Vector que almacenará los ids de las fichas que se pueden mover para el dado elegido.
+    vector<int> current_pieces;
+
+    // Se obtiene el vector de dados que se pueden usar para el movimiento
+    current_dices = actual->getAvailableDices(c_piece);
+
+    //Vemos que fichas podemos mover con dichos dados
+    vector<int> current_dices_usables;
+    for(int i = 0; i < current_dices.size(); i++){
+        //Se obtiene el vector de fichas que se pueden mover para el dado elegido
+        current_pieces = actual->getAvailablePieces(c_piece, current_dices[i]);
+
+        //Si se puede mover ficha para el dado actual, añadimos el dado a current_dices_usables
+        if(current_pieces.size() > 0)
+            current_dices_usables.push_back(current_dices[i]);
+        
+    }
+
+    //Si no tengo ningun dado con el que mover ficha, saltamos turno
+    if(current_dices_usables.size() == 0){
+        dice = current_dices[rand() % current_dices.size()];
+        id_piece = SKIP_TURN;
+    }
+    //En otro caso, elijo un dado de forma aleatoria de entre los que pueden mover ficha
+    else{
+        dice = current_dices_usables[rand() % current_dices_usables.size()];
+
+        //Se obtiene el vector de fichas que se pueden mover para el dado elegido
+        current_pieces = actual->getAvailablePieces(c_piece, dice);
+
+        //Movemos una de las fichas movibles al azar
+        id_piece = current_pieces[rand() % current_pieces.size()];
+    }
+
+}
+
+void AIPlayer::thinkFichaMasAdelantada(color & c_piece, int & id_piece, int & dice) const {
+    //Elijo el dado haciendo lo mismo que el jugador anterior
+    thinkAleatorioMasInteligente(c_piece, id_piece, dice);
+
+    //Ahora, en vez de mover una ficha al azar, movemos la que esté más adelantada.
+
+    vector<int> current_pieces = actual->getAvailablePieces(c_piece, dice);
+
+    int id_ficha_mas_adelantada = -1;
+    int min_distancia_meta = 999;
+    for(int i = 0; i < current_pieces.size(); i++){
+        int distancia_meta = actual->distanceToGoal(c_piece, current_pieces[i]);
+        if(distancia_meta < min_distancia_meta){
+            min_distancia_meta = distancia_meta;
+            id_ficha_mas_adelantada = current_pieces[i];
+        }
+    }
+
+    if(id_ficha_mas_adelantada == -1){
+        id_piece = SKIP_TURN;
+    }
+    else{
+        id_piece = id_ficha_mas_adelantada;
+    }
+
+}
+
+void AIPlayer::thinkMejorOpcion(color & c_piece, int & id_piece, int & dice) const{
+    //Vamos a mirar todos los posibles movimientos del jugador actual accediendo a los hijos del estado actual.
+
+    // generateNextMove va iterando cobre cada hijo. Le paso la acción del último movimiento sobre
+    // el que he iterado y me devolverá el siguiente. Inicialmente, cuando aún no he hecho ningún
+    // movimiento, lo inicializo así.
+    color last_c_piece = none;
+    int last_id_piece = -1;
+    int last_dice = -1;
+
+    // Cuando ya haya recorrido todos los hijos, la función devuelve el estado actual --> Condición de parada
+
+    Parchis siguiente_hijo = actual->generateNextMove(last_c_piece, last_id_piece, last_dice);
+
+    bool hay_solucion = false;
+
+    while(!(siguiente_hijo == *actual) && !hay_solucion){
+        if(siguiente_hijo.isEatingMove() || //Si comemos
+           siguiente_hijo.isGoalMove() ||   //Si ficha llega a meta
+           (siguiente_hijo.gameOver() && siguiente_hijo.getWinner() == this->jugador)   //Si ganamos
+        ){ 
+            hay_solucion = true;
+        }
+        else{
+            siguiente_hijo = actual->generateNextMove(last_c_piece, last_id_piece, last_dice);
+        }
+    }
+
+    //Si encontramos una accion solucion, se guarda en las variables pasadas por referencia
+    if(hay_solucion){
+        c_piece = last_c_piece;
+        id_piece = last_id_piece;
+        dice = last_dice;
+    }
+    //Si no, llamamos al metodo que adelanta la ficha más adelantada.
+    else{
+        thinkFichaMasAdelantada(c_piece, id_piece, dice);
+    }
+
+}
+
+double AIPlayer::Poda_Minimax(const Parchis &actual, int jugador, int profundidad, int profundidad_max, color &c_piece, int &id_piece, int &dice, double alpha, double beta, double (*heuristic)(const Parchis &, int)) const{
+
+    return 2.0;
+}
+
+
+double AIPlayer::Poda_AlfaBeta(const Parchis &actual, int jugador, int profundidad, int profundidad_max, color &c_piece, int &id_piece, int &dice, double alpha, double beta, double (*heuristic)(const Parchis &, int)) const{
+
+    return 2.0;
+}
 
 
 double AIPlayer::ValoracionTest(const Parchis &estado, int jugador)
