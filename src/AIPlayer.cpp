@@ -49,7 +49,7 @@ void AIPlayer::think(color & c_piece, int & id_piece, int & dice) const{
             thinkMejorOpcion(c_piece, id_piece, dice);
             break;
         case 4:
-            valor = busquedaMinimax(*actual, actual->getCurrentPlayerId(), 0, PROFUNDIDAD_MINIMAX, c_piece, id_piece, dice, ValoracionTest);
+            valor = busquedaMinimax(*actual, actual->getCurrentPlayerId(), 0, PROFUNDIDAD_MINIMAX, c_piece, id_piece, dice, Valoracion1);
             break;
     }
      cout << "Valor MiniMax: " << valor << "  Accion: " << str(c_piece) << " " << id_piece << " " << dice << endl;
@@ -374,6 +374,7 @@ double AIPlayer::Valoracion1(const Parchis &estado, int jugador)
 
         // Recorro todas las fichas de mi jugador
         int puntuacion_jugador = 0;
+        //int puntuacion_color = 0;
         // Recorro colores de mi jugador.
         for (int i = 0; i < my_colors.size(); i++)
         {
@@ -381,6 +382,9 @@ double AIPlayer::Valoracion1(const Parchis &estado, int jugador)
             // Recorro las fichas de ese color.
             for (int j = 0; j < num_pieces; j++)
             {
+                //Valoro positivamente que la ficha esté cerca de la meta
+                puntuacion_jugador += (73 - estado.distanceToGoal(c, j)) / 2;
+                
                 // Valoro positivamente que la ficha esté en casilla segura o meta.
                 if (estado.isSafePiece(c, j))
                 {
@@ -389,6 +393,9 @@ double AIPlayer::Valoracion1(const Parchis &estado, int jugador)
                 else if (estado.getBoard().getPiece(c, j).type == home)
                 {
                     puntuacion_jugador += 5;
+                }
+                else if (estado.getBoard().getPiece(c, j).type == goal){
+                    puntuacion_jugador += 10;
                 }
             }
         }
@@ -402,6 +409,9 @@ double AIPlayer::Valoracion1(const Parchis &estado, int jugador)
             // Recorro las fichas de ese color.
             for (int j = 0; j < num_pieces; j++)
             {
+                //Valoro positivamente que la ficha esté cerca de la meta
+                puntuacion_oponente += (73 - estado.distanceToGoal(c, j)) / 2;
+
                 if (estado.isSafePiece(c, j))
                 {
                     // Valoro negativamente que la ficha esté en casilla segura o meta.
@@ -410,6 +420,9 @@ double AIPlayer::Valoracion1(const Parchis &estado, int jugador)
                 else if (estado.getBoard().getPiece(c, j).type == home)
                 {
                     puntuacion_oponente += 5;
+                }
+                else if (estado.getBoard().getPiece(c, j).type == goal){
+                    puntuacion_oponente += 10;
                 }
             }
         }

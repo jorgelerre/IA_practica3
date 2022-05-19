@@ -5,6 +5,9 @@
 # include "Player.h"
 
 class AIPlayer: public Player{
+    private:
+        //Arreglo para ultimas jugadas Minimax
+        bool va_a_ganar;
     protected:
         //Id identificativo del jugador
         const int id;
@@ -14,7 +17,7 @@ class AIPlayer: public Player{
          * 
          * @param name Nombre del jugador
          */
-        inline AIPlayer(const string & name):Player(name), id(0){};
+        inline AIPlayer(const string & name):Player(name), id(0), va_a_ganar(0){};
         
         /**
          * @brief Constructor de un objeto AIPlayer 
@@ -22,7 +25,7 @@ class AIPlayer: public Player{
          * @param name Nombre  del jugador
          * @param id Id del jugador
          */
-        inline AIPlayer(const string & name, const int id):Player(name), id(id){};
+        inline AIPlayer(const string & name, const int id):Player(name), id(id), va_a_ganar(0){};
 
         /**
          * @brief Función que percibe el el parchís y al jugador actual.
@@ -83,7 +86,7 @@ class AIPlayer: public Player{
          * @param jugador Id del jugador actual (0 o 1)
          * @return double 
          */
-        double Valoracion1(const Parchis &estado, int jugador);
+        static double Valoracion1(const Parchis &estado, int jugador);
         /**
          * @brief Algoritmo de búsqueda minimax.
          * 
@@ -98,7 +101,7 @@ class AIPlayer: public Player{
          *
          * @return double Que representa el valor de la heurística final para el nodo actual.
          */
-        double busquedaMinimax(const Parchis &actual, int jugador, int profundidad, int profundidad_max, color &c_piece, int &id_piece, int &dice, double (*heuristic)(const Parchis &, int)) const;
+        double busquedaMinimax(const Parchis &actual, int jugador, int profundidad, int profundidad_max, color &c_piece, int &id_piece, int &dice, bool &sol_encontrada, int &pasos_a_sol, double (*heuristic)(const Parchis &, int)) const;
         /**
          * @brief Propuesta de declaración de la función poda alfa-beta.
          * La propuesta es solo sugerencia, los parámetros de la declaración podrían variar.
