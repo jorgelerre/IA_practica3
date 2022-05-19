@@ -1,0 +1,1285 @@
+Screen dimension: 1920x1080
+Screen dimension: 1920x1080
+last_dice: -1
+++++++++++++++++++++++++++++++++++++++
+¡COMIENZA LA PARTIDA!
+Jugador 1: Va en serio
+Jugador 2: Busqueda Minimax
+++++++++++++++++++++++++++++++++++++++
+----------------
+Turno: 1
+Jugador actual: 0 (Va en serio)
+Color actual: Amarillo
+----------------
+Realizo un movimiento automatico
+Valor MiniMax: 2  Accion: ??? 751248504 32664
+Valor MiniMax: 2  Accion: Amarillo 3 2
+Movimiento elegido: Amarillo 3 2
+New move received. Updating GUI
+Last action: Amarillo 3 2
+last_dice: -1
+last_dice: -1
+----------------
+Turno: 2
+Jugador actual: 1 (Busqueda Minimax)
+Color actual: Azul
+----------------
+Realizo un movimiento automatico
+Valor MiniMax: 2  Accion: ??? 751248504 32664
+Nodo interno...
+Nodo interno...
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Generado primer hijo
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo min / p = 1 y mejor_h = 1
+Nuevo mejor nodo con h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 4
+Saliendo de p = 2 con h = 4
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Saliendo de p = 1 con h = 0
+Generado primer hijo
+Valorando nodo max / p = 0 y mejor_h = 0
+Nodo interno...
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Generado primer hijo
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo min / p = 1 y mejor_h = 1
+Nuevo mejor nodo con h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 4
+Saliendo de p = 2 con h = 4
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Saliendo de p = 1 con h = 0
+Valorando nodo max / p = 0 y mejor_h = 0
+Nodo interno...
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Generado primer hijo
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo min / p = 1 y mejor_h = 1
+Nuevo mejor nodo con h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 4
+Saliendo de p = 2 con h = 4
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Saliendo de p = 1 con h = 0
+Valorando nodo max / p = 0 y mejor_h = 0
+Nodo interno...
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Generado primer hijo
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo min / p = 1 y mejor_h = 1
+Nuevo mejor nodo con h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 4
+Saliendo de p = 2 con h = 4
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Saliendo de p = 1 con h = 0
+Valorando nodo max / p = 0 y mejor_h = 0
+Nodo interno...
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Generado primer hijo
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo min / p = 1 y mejor_h = 1
+Nuevo mejor nodo con h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 4
+Saliendo de p = 2 con h = 4
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Saliendo de p = 1 con h = 0
+Valorando nodo max / p = 0 y mejor_h = 0
+Nodo interno...
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Generado primer hijo
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo min / p = 1 y mejor_h = 1
+Nuevo mejor nodo con h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 4
+Saliendo de p = 2 con h = 4
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Saliendo de p = 1 con h = 0
+Valorando nodo max / p = 0 y mejor_h = 0
+Nodo interno...
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Generado primer hijo
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo min / p = 1 y mejor_h = 1
+Nuevo mejor nodo con h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 4
+Saliendo de p = 2 con h = 4
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Saliendo de p = 1 con h = 0
+Valorando nodo max / p = 0 y mejor_h = 0
+Nodo interno...
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Generado primer hijo
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo min / p = 1 y mejor_h = 1
+Nuevo mejor nodo con h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 4
+Saliendo de p = 2 con h = 4
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Saliendo de p = 1 con h = 0
+Valorando nodo max / p = 0 y mejor_h = 0
+Nodo interno...
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Generado primer hijo
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo min / p = 1 y mejor_h = 1
+Nuevo mejor nodo con h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 4
+Saliendo de p = 2 con h = 4
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Saliendo de p = 1 con h = 0
+Valorando nodo max / p = 0 y mejor_h = 0
+Nodo interno...
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Generado primer hijo
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo min / p = 1 y mejor_h = 1
+Nuevo mejor nodo con h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 4
+Saliendo de p = 2 con h = 4
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Saliendo de p = 1 con h = 0
+Valorando nodo max / p = 0 y mejor_h = 0
+Nodo interno...
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Generado primer hijo
+Valorando nodo min / p = 1 y mejor_h = 2
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Valorando nodo min / p = 1 y mejor_h = 2
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Valorando nodo min / p = 1 y mejor_h = 2
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Valorando nodo min / p = 1 y mejor_h = 2
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Valorando nodo min / p = 1 y mejor_h = 2
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Valorando nodo min / p = 1 y mejor_h = 2
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Valorando nodo min / p = 1 y mejor_h = 2
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Valorando nodo min / p = 1 y mejor_h = 2
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Valorando nodo min / p = 1 y mejor_h = 2
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Valorando nodo min / p = 1 y mejor_h = 2
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 2
+Nuevo mejor nodo con h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 5
+Saliendo de p = 2 con h = 5
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Saliendo de p = 1 con h = 1
+Valorando nodo max / p = 0 y mejor_h = 0
+Nuevo mejor nodo con h = 1
+Nodo interno...
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Generado primer hijo
+Valorando nodo min / p = 1 y mejor_h = 2
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Valorando nodo min / p = 1 y mejor_h = 2
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Valorando nodo min / p = 1 y mejor_h = 2
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Valorando nodo min / p = 1 y mejor_h = 2
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Valorando nodo min / p = 1 y mejor_h = 2
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Valorando nodo min / p = 1 y mejor_h = 2
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Valorando nodo min / p = 1 y mejor_h = 2
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Valorando nodo min / p = 1 y mejor_h = 2
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Valorando nodo min / p = 1 y mejor_h = 2
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Valorando nodo min / p = 1 y mejor_h = 2
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 2
+Nuevo mejor nodo con h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 2
+Saliendo de p = 2 con h = 2
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Saliendo de p = 1 con h = 1
+Valorando nodo max / p = 0 y mejor_h = 1
+Nodo interno...
+Nodo frontera... / h = -2
+Saliendo de p = 2 con h = -2
+Generado primer hijo
+Valorando nodo min / p = 1 y mejor_h = -2
+Nodo frontera... / h = -2
+Saliendo de p = 2 con h = -2
+Valorando nodo min / p = 1 y mejor_h = -2
+Nodo frontera... / h = -2
+Saliendo de p = 2 con h = -2
+Valorando nodo min / p = 1 y mejor_h = -2
+Nodo frontera... / h = -2
+Saliendo de p = 2 con h = -2
+Valorando nodo min / p = 1 y mejor_h = -2
+Nodo frontera... / h = -2
+Saliendo de p = 2 con h = -2
+Valorando nodo min / p = 1 y mejor_h = -2
+Nodo frontera... / h = -2
+Saliendo de p = 2 con h = -2
+Valorando nodo min / p = 1 y mejor_h = -2
+Nodo frontera... / h = -2
+Saliendo de p = 2 con h = -2
+Valorando nodo min / p = 1 y mejor_h = -2
+Nodo frontera... / h = -2
+Saliendo de p = 2 con h = -2
+Valorando nodo min / p = 1 y mejor_h = -2
+Nodo frontera... / h = -2
+Saliendo de p = 2 con h = -2
+Valorando nodo min / p = 1 y mejor_h = -2
+Nodo frontera... / h = -2
+Saliendo de p = 2 con h = -2
+Valorando nodo min / p = 1 y mejor_h = -2
+Nodo frontera... / h = -3
+Saliendo de p = 2 con h = -3
+Valorando nodo min / p = 1 y mejor_h = -2
+Nuevo mejor nodo con h = -3
+Nodo frontera... / h = -3
+Saliendo de p = 2 con h = -3
+Valorando nodo min / p = 1 y mejor_h = -3
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = -3
+Nodo frontera... / h = -2
+Saliendo de p = 2 con h = -2
+Valorando nodo min / p = 1 y mejor_h = -3
+Nodo frontera... / h = -2
+Saliendo de p = 2 con h = -2
+Valorando nodo min / p = 1 y mejor_h = -3
+Nodo frontera... / h = -2
+Saliendo de p = 2 con h = -2
+Valorando nodo min / p = 1 y mejor_h = -3
+Nodo frontera... / h = -2
+Saliendo de p = 2 con h = -2
+Valorando nodo min / p = 1 y mejor_h = -3
+Nodo frontera... / h = -2
+Saliendo de p = 2 con h = -2
+Valorando nodo min / p = 1 y mejor_h = -3
+Nodo frontera... / h = -2
+Saliendo de p = 2 con h = -2
+Valorando nodo min / p = 1 y mejor_h = -3
+Nodo frontera... / h = -3
+Saliendo de p = 2 con h = -3
+Saliendo de p = 1 con h = -3
+Valorando nodo max / p = 0 y mejor_h = 1
+Nodo interno...
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Generado primer hijo
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo min / p = 1 y mejor_h = 1
+Nuevo mejor nodo con h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 4
+Saliendo de p = 2 con h = 4
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Saliendo de p = 1 con h = 0
+Valorando nodo max / p = 0 y mejor_h = 1
+Nodo interno...
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Generado primer hijo
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo min / p = 1 y mejor_h = 1
+Nuevo mejor nodo con h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 4
+Saliendo de p = 2 con h = 4
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Saliendo de p = 1 con h = 0
+Valorando nodo max / p = 0 y mejor_h = 1
+Nodo interno...
+Nodo frontera... / h = 6
+Saliendo de p = 2 con h = 6
+Generado primer hijo
+Valorando nodo min / p = 1 y mejor_h = 6
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 6
+Nuevo mejor nodo con h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo min / p = 1 y mejor_h = 1
+Nuevo mejor nodo con h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 4
+Saliendo de p = 2 con h = 4
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo min / p = 1 y mejor_h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Saliendo de p = 1 con h = 0
+Valorando nodo max / p = 0 y mejor_h = 1
+Nodo interno...
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Generado primer hijo
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = -1
+Saliendo de p = 2 con h = -1
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = -1
+Saliendo de p = 2 con h = -1
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = -1
+Saliendo de p = 2 con h = -1
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = -1
+Saliendo de p = 2 con h = -1
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo max / p = 1 y mejor_h = 0
+Nuevo mejor nodo con h = 1
+Nodo frontera... / h = -1
+Saliendo de p = 2 con h = -1
+Valorando nodo max / p = 1 y mejor_h = 1
+Nodo frontera... / h = -1
+Saliendo de p = 2 con h = -1
+Valorando nodo max / p = 1 y mejor_h = 1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = 1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = 1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = 1
+Nodo frontera... / h = -4
+Saliendo de p = 2 con h = -4
+Valorando nodo max / p = 1 y mejor_h = 1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = 1
+Nodo frontera... / h = -1
+Saliendo de p = 2 con h = -1
+Valorando nodo max / p = 1 y mejor_h = 1
+Nodo frontera... / h = -1
+Saliendo de p = 2 con h = -1
+Valorando nodo max / p = 1 y mejor_h = 1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Saliendo de p = 1 con h = 1
+Valorando nodo max / p = 0 y mejor_h = 1
+Nodo interno...
+Nodo frontera... / h = -1
+Saliendo de p = 2 con h = -1
+Generado primer hijo
+Valorando nodo max / p = 1 y mejor_h = -1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = -1
+Nuevo mejor nodo con h = 0
+Nodo frontera... / h = -1
+Saliendo de p = 2 con h = -1
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = -1
+Saliendo de p = 2 con h = -1
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo max / p = 1 y mejor_h = 0
+Nuevo mejor nodo con h = 1
+Nodo frontera... / h = -1
+Saliendo de p = 2 con h = -1
+Valorando nodo max / p = 1 y mejor_h = 1
+Nodo frontera... / h = -1
+Saliendo de p = 2 con h = -1
+Valorando nodo max / p = 1 y mejor_h = 1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = 1
+Nodo frontera... / h = -1
+Saliendo de p = 2 con h = -1
+Valorando nodo max / p = 1 y mejor_h = 1
+Nodo frontera... / h = -1
+Saliendo de p = 2 con h = -1
+Valorando nodo max / p = 1 y mejor_h = 1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = 1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = 1
+Nodo frontera... / h = -4
+Saliendo de p = 2 con h = -4
+Valorando nodo max / p = 1 y mejor_h = 1
+Nodo frontera... / h = -1
+Saliendo de p = 2 con h = -1
+Valorando nodo max / p = 1 y mejor_h = 1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = 1
+Nodo frontera... / h = -1
+Saliendo de p = 2 con h = -1
+Valorando nodo max / p = 1 y mejor_h = 1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Saliendo de p = 1 con h = 1
+Valorando nodo max / p = 0 y mejor_h = 1
+Nodo interno...
+Nodo frontera... / h = -1
+Saliendo de p = 2 con h = -1
+Generado primer hijo
+Valorando nodo max / p = 1 y mejor_h = -1
+Nodo frontera... / h = -1
+Saliendo de p = 2 con h = -1
+Valorando nodo max / p = 1 y mejor_h = -1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = -1
+Nuevo mejor nodo con h = 0
+Nodo frontera... / h = -1
+Saliendo de p = 2 con h = -1
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = -1
+Saliendo de p = 2 con h = -1
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = -1
+Saliendo de p = 2 con h = -1
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = -1
+Saliendo de p = 2 con h = -1
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = -1
+Saliendo de p = 2 con h = -1
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = -4
+Saliendo de p = 2 con h = -4
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = -1
+Saliendo de p = 2 con h = -1
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = -1
+Saliendo de p = 2 con h = -1
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Saliendo de p = 1 con h = 0
+Valorando nodo max / p = 0 y mejor_h = 1
+Nodo interno...
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Generado primer hijo
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = 0
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo max / p = 1 y mejor_h = 0
+Nuevo mejor nodo con h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Valorando nodo max / p = 1 y mejor_h = 1
+Nodo frontera... / h = -3
+Saliendo de p = 2 con h = -3
+Valorando nodo max / p = 1 y mejor_h = 1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = 1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = 1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = 1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = 1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = 1
+Nodo frontera... / h = 0
+Saliendo de p = 2 con h = 0
+Valorando nodo max / p = 1 y mejor_h = 1
+Nodo frontera... / h = 1
+Saliendo de p = 2 con h = 1
+Saliendo de p = 1 con h = 1
+Saliendo de p = 0 con h = 1
+Valor MiniMax: 1  Accion: ??? -1 -1
+Movimiento elegido: ??? -1 -1

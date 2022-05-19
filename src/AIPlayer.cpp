@@ -48,8 +48,11 @@ void AIPlayer::think(color & c_piece, int & id_piece, int & dice) const{
         case 3:
             thinkMejorOpcion(c_piece, id_piece, dice);
             break;
+        case 4:
+            valor = busquedaMinimax(*actual, actual->getCurrentPlayerId(), 0, PROFUNDIDAD_MINIMAX, c_piece, id_piece, dice, ValoracionTest);
+            break;
     }
-    cout << "Valor MiniMax: " << valor << "  Accion: " << str(c_piece) << " " << id_piece << " " << dice << endl;
+     cout << "Valor MiniMax: " << valor << "  Accion: " << str(c_piece) << " " << id_piece << " " << dice << endl;
 
     
 }
@@ -114,7 +117,6 @@ void AIPlayer::thinkAleatorioMasInteligente(color & c_piece, int & id_piece, int
         //Si se puede mover ficha para el dado actual, añadimos el dado a current_dices_usables
         if(current_pieces.size() > 0)
             current_dices_usables.push_back(current_dices[i]);
-        
     }
 
     //Si no tengo ningun dado con el que mover ficha, saltamos turno
@@ -203,9 +205,73 @@ void AIPlayer::thinkMejorOpcion(color & c_piece, int & id_piece, int & dice) con
 
 }
 
-double AIPlayer::Poda_Minimax(const Parchis &actual, int jugador, int profundidad, int profundidad_max, color &c_piece, int &id_piece, int &dice, double alpha, double beta, double (*heuristic)(const Parchis &, int)) const{
+double AIPlayer::busquedaMinimax(const Parchis &actual, int jugador, int profundidad, int profundidad_max, color &c_piece, int &id_piece, int &dice, double (*heuristic)(const Parchis &, int)) const{
+    //Variables donde guardaremos el estado del hijo actualmente tratado
+    color last_c_piece = none;
+    int last_id_piece = -1;
+    int last_dice = -1;
 
-    return 2.0;
+    //Variables donde guardaremos las soluciones provisionales locales
+    color mejor_color;
+    int mejor_piece;
+    int mejor_dice;
+    int mejor_h;
+    
+    //Si estamos a la profundidad suficiente, operamos directamente sobre el estado
+    if(profundidad_max == profundidad){
+        mejor_h = heuristic(actual, jugador);
+        //cout << "Nodo frontera... / h = " << mejor_h << endl;
+    }
+    //Si no estamos a la suficiente profundidad
+    else{
+        //cout << "Nodo interno..." << endl;
+        
+        //Tomamos el primer hijo del nodo
+        Parchis siguiente_hijo = actual.generateNextMove(last_c_piece, last_id_piece, last_dice);
+        //Calculamos su valor h llamando recursivamente a la función
+        int h = busquedaMinimax(siguiente_hijo, jugador, profundidad+1, profundidad_max, mejor_color, mejor_piece, mejor_dice, heuristic);
+        //Tomamos el primer hijo como solucion de referencia
+        c_piece = last_c_piece;
+        id_piece = last_id_piece;
+        dice = last_dice;
+        mejor_h = h;
+        
+        //cout << "Generado primer hijo" << endl;
+
+        while(!(siguiente_hijo == actual)){   //Recorremos los hijos del nodo
+
+            if(actual.getCurrentPlayerId() == jugador){    //Si es un nodo max
+                //Guardamos la jugada como mejor si su heurística es la mejor
+                //cout << "Valorando nodo max / p = " << profundidad << " y mejor_h = " << mejor_h << endl;
+                
+                if(h > mejor_h){
+                    //cout << "Nuevo mejor nodo con h = " << h << endl;
+                    c_piece = last_c_piece;
+                    id_piece = last_id_piece;
+                    dice = last_dice;
+                    mejor_h = h;
+                }
+            }
+            else{   //Si es un nodo min
+                //cout << "Valorando nodo min / p = " << profundidad << " y mejor_h = " << mejor_h << endl;
+                if(h < mejor_h){
+                    //cout << "Nuevo mejor nodo con h = " << h << endl;
+                    c_piece = last_c_piece;
+                    id_piece = last_id_piece;
+                    dice = last_dice;
+                    mejor_h = h;
+                }
+            }
+
+            //Generamos siguiente hijo
+            siguiente_hijo = actual.generateNextMove(last_c_piece, last_id_piece, last_dice);
+            h = busquedaMinimax(siguiente_hijo, jugador, profundidad+1, profundidad_max, mejor_color, mejor_piece, mejor_dice, heuristic);
+        }
+    }
+    
+    //cout << "Saliendo de p = " << profundidad << " con h = " << mejor_h << endl;
+    
+    return mejor_h;
 }
 
 
@@ -285,3 +351,70 @@ double AIPlayer::ValoracionTest(const Parchis &estado, int jugador)
     }
 }
 
+double AIPlayer::Valoracion1(const Parchis &estado, int jugador)
+{
+
+    int ganador = estado.getWinner();
+    int oponente = (jugador + 1) % 2;
+
+    // Si hay un ganador, devuelvo más/menos infinito, según si he ganado yo o el oponente.
+    if (ganador == jugador)
+    {
+        return gana;
+    }
+    else if (ganador == oponente)
+    {
+        return pierde;
+    }
+    else
+    {
+        // Colores que juega mi jugador y colores del oponente
+        vector<color> my_colors = estado.getPlayerColors(jugador);
+        vector<color> op_colors = estado.getPlayerColors(oponente);
+
+        // Recorro todas las fichas de mi jugador
+        int puntuacion_jugador = 0;
+        // Recorro colores de mi jugador.
+        for (int i = 0; i < my_colors.size(); i++)
+        {
+            color c = my_colors[i];
+            // Recorro las fichas de ese color.
+            for (int j = 0; j < num_pieces; j++)
+            {
+                // Valoro positivamente que la ficha esté en casilla segura o meta.
+                if (estado.isSafePiece(c, j))
+                {
+                    puntuacion_jugador++;
+                }
+                else if (estado.getBoard().getPiece(c, j).type == home)
+                {
+                    puntuacion_jugador += 5;
+                }
+            }
+        }
+
+        // Recorro todas las fichas del oponente
+        int puntuacion_oponente = 0;
+        // Recorro colores del oponente.
+        for (int i = 0; i < op_colors.size(); i++)
+        {
+            color c = op_colors[i];
+            // Recorro las fichas de ese color.
+            for (int j = 0; j < num_pieces; j++)
+            {
+                if (estado.isSafePiece(c, j))
+                {
+                    // Valoro negativamente que la ficha esté en casilla segura o meta.
+                    puntuacion_oponente++;
+                }
+                else if (estado.getBoard().getPiece(c, j).type == home)
+                {
+                    puntuacion_oponente += 5;
+                }
+            }
+        }
+
+        // Devuelvo la puntuación de mi jugador menos la puntuación del oponente.
+        return puntuacion_jugador - puntuacion_oponente;
+    }
+}
