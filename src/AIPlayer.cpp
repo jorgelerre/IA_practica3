@@ -326,24 +326,23 @@ double AIPlayer::Poda_AlfaBeta(const Parchis &actual, int jugador, int profundid
         //Parada en nodos internos
         char a;
         //cin >> a ;
-        //Tomamos el primer hijo del nodo
-        Parchis siguiente_hijo = actual.generateNextMoveDescending(last_c_piece, last_id_piece, last_dice);
         
-        //Si la partida acaba en ese nodo, lo tratamos como un nodo frontera
-        if(siguiente_hijo.gameOver()){  
+        //Si la partida acaba en este nodo, lo tratamos como un nodo frontera
+        if(actual.gameOver()){  
             //Tomamos la solución
-            c_piece = last_c_piece;
-            id_piece = last_id_piece;
-            dice = last_dice;
-
-            if(siguiente_hijo.getWinner() == jugador){
-                return gana;
+            if(actual.getWinner() == jugador){
+                return gana/profundidad;
             }
             else{
                 return pierde;
             }
         }
         else{   //Si no ha terminado la partida
+            //Tomamos el primer hijo del nodo
+            Parchis siguiente_hijo = actual.generateNextMoveDescending(last_c_piece, last_id_piece, last_dice);
+            mejor_color = last_c_piece;
+            mejor_piece = last_id_piece;
+            mejor_dice = last_dice;
             //Calculamos su valor h llamando recursivamente a la función
             int h = Poda_AlfaBeta(siguiente_hijo, jugador, profundidad+1, profundidad_max, mejor_color, mejor_piece, mejor_dice, alpha, beta, heuristic);
             //Tomamos el primer hijo como solucion de referencia
@@ -382,6 +381,9 @@ double AIPlayer::Poda_AlfaBeta(const Parchis &actual, int jugador, int profundid
 
                 //Generamos siguiente hijo
                 siguiente_hijo = actual.generateNextMoveDescending(last_c_piece, last_id_piece, last_dice);
+                mejor_color = last_c_piece;
+                mejor_piece = last_id_piece;
+                mejor_dice = last_dice;
                 h = Poda_AlfaBeta(siguiente_hijo, jugador, profundidad+1, profundidad_max, mejor_color, mejor_piece, mejor_dice, alpha, beta, heuristic);
             }
         }
@@ -500,9 +502,9 @@ double AIPlayer::Valoracion1(const Parchis &estado, int jugador)
                 puntuacion_jugador += (73 - estado.distanceToGoal(c, j)) / 2;
                 
                 // Valoro positivamente que la ficha esté en casilla segura o meta.
-                if (estado.isSafePiece(c, j))
+                if (!estado.isSafePiece(c, j))
                 {
-                    puntuacion_jugador++;
+                    puntuacion_jugador -= 5;
                 }
                 else if (estado.getBoard().getPiece(c, j).type == home)
                 {
@@ -526,10 +528,10 @@ double AIPlayer::Valoracion1(const Parchis &estado, int jugador)
                 //Valoro positivamente que la ficha esté cerca de la meta
                 puntuacion_oponente += (73 - estado.distanceToGoal(c, j)) / 2;
 
-                if (estado.isSafePiece(c, j))
+                if (!estado.isSafePiece(c, j))
                 {
                     // Valoro negativamente que la ficha esté en casilla segura o meta.
-                    puntuacion_oponente++;
+                    puntuacion_oponente -= 5;
                 }
                 else if (estado.getBoard().getPiece(c, j).type == home)
                 {
