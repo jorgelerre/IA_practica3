@@ -23,12 +23,11 @@ bool AIPlayer::move(){
 
 void AIPlayer::think(color & c_piece, int & id_piece, int & dice) const{
     // El siguiente código se proporciona como sugerencia para iniciar la implementación del agente.
-
     double valor; // Almacena el valor con el que se etiqueta el estado tras el proceso de busqueda.
     double alpha = menosinf, beta = masinf; // Cotas iniciales de la poda AlfaBeta
     // Llamada a la función para la poda (los parámetros son solo una sugerencia, se pueden modificar).
-    valor = Poda_AlfaBeta(*actual, jugador, 0, PROFUNDIDAD_ALFABETA, c_piece, id_piece, dice, alpha, beta, ValoracionTest);
-    cout << "Valor MiniMax: " << valor << "  Accion: " << str(c_piece) << " " << id_piece << " " << dice << endl;
+    //valor = Poda_AlfaBeta(*actual, jugador, 0, PROFUNDIDAD_ALFABETA, c_piece, id_piece, dice, alpha, beta, ValoracionTest);
+    //cout << "Valor MiniMax: " << valor << "  Accion: " << str(c_piece) << " " << id_piece << " " << dice << endl;
 
     // ----------------------------------------------------------------- //
 
@@ -50,6 +49,19 @@ void AIPlayer::think(color & c_piece, int & id_piece, int & dice) const{
             break;
         case 4:
             valor = busquedaMinimax(*actual, actual->getCurrentPlayerId(), 0, PROFUNDIDAD_MINIMAX, c_piece, id_piece, dice, Valoracion1);
+            /*
+            if(valor == gana){
+                thinkMejorOpcion(c_piece, id_piece, dice);
+            }
+            */
+            break;
+        case 5:
+            valor = Poda_AlfaBeta(*actual, actual->getCurrentPlayerId(), 0, PROFUNDIDAD_MINIMAX, c_piece, id_piece, dice, alpha, beta, Valoracion1);
+            /*
+            if(valor == gana){
+                thinkMejorOpcion(c_piece, id_piece, dice);
+            }
+            */
             break;
     }
      cout << "Valor MiniMax: " << valor << "  Accion: " << str(c_piece) << " " << id_piece << " " << dice << endl;
@@ -228,44 +240,61 @@ double AIPlayer::busquedaMinimax(const Parchis &actual, int jugador, int profund
         
         //Tomamos el primer hijo del nodo
         Parchis siguiente_hijo = actual.generateNextMove(last_c_piece, last_id_piece, last_dice);
-        //Calculamos su valor h llamando recursivamente a la función
-        int h = busquedaMinimax(siguiente_hijo, jugador, profundidad+1, profundidad_max, mejor_color, mejor_piece, mejor_dice, heuristic);
-        //Tomamos el primer hijo como solucion de referencia
-        c_piece = last_c_piece;
-        id_piece = last_id_piece;
-        dice = last_dice;
-        mejor_h = h;
         
-        //cout << "Generado primer hijo" << endl;
+        if(siguiente_hijo.gameOver()){  //Si la partida acaba en ese nodo
+            //Tomamos la solución
+            c_piece = last_c_piece;
+            id_piece = last_id_piece;
+            dice = last_dice;
 
-        while(!(siguiente_hijo == actual)){   //Recorremos los hijos del nodo
-
-            if(actual.getCurrentPlayerId() == jugador){    //Si es un nodo max
-                //Guardamos la jugada como mejor si su heurística es la mejor
-                //cout << "Valorando nodo max / p = " << profundidad << " y mejor_h = " << mejor_h << endl;
-                
-                if(h > mejor_h){
-                    //cout << "Nuevo mejor nodo con h = " << h << endl;
-                    c_piece = last_c_piece;
-                    id_piece = last_id_piece;
-                    dice = last_dice;
-                    mejor_h = h;
-                }
+            if(siguiente_hijo.getWinner() == jugador){  //Y ganamos
+                return gana;
             }
-            else{   //Si es un nodo min
-                //cout << "Valorando nodo min / p = " << profundidad << " y mejor_h = " << mejor_h << endl;
-                if(h < mejor_h){
-                    //cout << "Nuevo mejor nodo con h = " << h << endl;
-                    c_piece = last_c_piece;
-                    id_piece = last_id_piece;
-                    dice = last_dice;
-                    mejor_h = h;
-                }
+            else{
+                return pierde;
             }
+        }
 
-            //Generamos siguiente hijo
-            siguiente_hijo = actual.generateNextMove(last_c_piece, last_id_piece, last_dice);
-            h = busquedaMinimax(siguiente_hijo, jugador, profundidad+1, profundidad_max, mejor_color, mejor_piece, mejor_dice, heuristic);
+        else{   //Si no ha terminado la partida
+            //Calculamos su valor h llamando recursivamente a la función
+            int h = busquedaMinimax(siguiente_hijo, jugador, profundidad+1, profundidad_max, mejor_color, mejor_piece, mejor_dice, heuristic);
+            //Tomamos el primer hijo como solucion de referencia
+            c_piece = last_c_piece;
+            id_piece = last_id_piece;
+            dice = last_dice;
+            mejor_h = h;
+            
+            //cout << "Generado primer hijo" << endl;
+
+            while(!(siguiente_hijo == actual)){   //Recorremos los hijos del nodo
+
+                if(actual.getCurrentPlayerId() == jugador){    //Si es un nodo max
+                    //Guardamos la jugada como mejor si su heurística es la mejor
+                    //cout << "Valorando nodo max / p = " << profundidad << " y mejor_h = " << mejor_h << endl;
+                    
+                    if(h > mejor_h){
+                        //cout << "Nuevo mejor nodo con h = " << h << endl;
+                        c_piece = last_c_piece;
+                        id_piece = last_id_piece;
+                        dice = last_dice;
+                        mejor_h = h;
+                    }
+                }
+                else{   //Si es un nodo min
+                    //cout << "Valorando nodo min / p = " << profundidad << " y mejor_h = " << mejor_h << endl;
+                    if(h < mejor_h){
+                        //cout << "Nuevo mejor nodo con h = " << h << endl;
+                        c_piece = last_c_piece;
+                        id_piece = last_id_piece;
+                        dice = last_dice;
+                        mejor_h = h;
+                    }
+                }
+
+                //Generamos siguiente hijo
+                siguiente_hijo = actual.generateNextMove(last_c_piece, last_id_piece, last_dice);
+                h = busquedaMinimax(siguiente_hijo, jugador, profundidad+1, profundidad_max, mejor_color, mejor_piece, mejor_dice, heuristic);
+            }
         }
     }
     
@@ -276,7 +305,84 @@ double AIPlayer::busquedaMinimax(const Parchis &actual, int jugador, int profund
 
 
 double AIPlayer::Poda_AlfaBeta(const Parchis &actual, int jugador, int profundidad, int profundidad_max, color &c_piece, int &id_piece, int &dice, double alpha, double beta, double (*heuristic)(const Parchis &, int)) const{
+    //Variables donde guardaremos el estado del hijo actualmente tratado
+    color last_c_piece = none;
+    int last_id_piece = -1;
+    int last_dice = -1;
 
+    //Variables donde guardaremos las soluciones provisionales locales
+    color mejor_color;
+    int mejor_piece;
+    int mejor_dice;
+    int mejor_h;
+    
+    //Si estamos a la profundidad suficiente, operamos directamente sobre el estado
+    if(profundidad_max == profundidad){
+        mejor_h = heuristic(actual, jugador);
+        //cout << "Nodo frontera... / h = " << mejor_h << endl;
+    }
+    //Si no estamos a la suficiente profundidad
+    else{
+        //cout << "Nodo interno..." << endl;
+        
+        //Tomamos el primer hijo del nodo
+        Parchis siguiente_hijo = actual.generateNextMove(last_c_piece, last_id_piece, last_dice);
+        
+        if(siguiente_hijo.gameOver()){  //Si la partida acaba en ese nodo
+            if(siguiente_hijo.getWinner() == jugador){
+                //Tomamos la solución
+                c_piece = last_c_piece;
+                id_piece = last_id_piece;
+                dice = last_dice;
+                return gana;
+            }
+        }
+        else{   //Si no ha terminado la partida
+            //Calculamos su valor h llamando recursivamente a la función
+            int h = busquedaMinimax(siguiente_hijo, jugador, profundidad+1, profundidad_max, mejor_color, mejor_piece, mejor_dice, heuristic);
+            //Tomamos el primer hijo como solucion de referencia
+            c_piece = last_c_piece;
+            id_piece = last_id_piece;
+            dice = last_dice;
+            mejor_h = h;
+            
+            //cout << "Generado primer hijo" << endl;
+
+            while(!(siguiente_hijo == actual)){   //Recorremos los hijos del nodo
+
+                if(actual.getCurrentPlayerId() == jugador){    //Si es un nodo max
+                    //Guardamos la jugada como mejor si su heurística es la mejor
+                    //cout << "Valorando nodo max / p = " << profundidad << " y mejor_h = " << mejor_h << endl;
+                    
+                    if(h > mejor_h){
+                        //cout << "Nuevo mejor nodo con h = " << h << endl;
+                        c_piece = last_c_piece;
+                        id_piece = last_id_piece;
+                        dice = last_dice;
+                        mejor_h = h;
+                    }
+                }
+                else{   //Si es un nodo min
+                    //cout << "Valorando nodo min / p = " << profundidad << " y mejor_h = " << mejor_h << endl;
+                    if(h < mejor_h){
+                        //cout << "Nuevo mejor nodo con h = " << h << endl;
+                        c_piece = last_c_piece;
+                        id_piece = last_id_piece;
+                        dice = last_dice;
+                        mejor_h = h;
+                    }
+                }
+
+                //Generamos siguiente hijo
+                siguiente_hijo = actual.generateNextMove(last_c_piece, last_id_piece, last_dice);
+                h = busquedaMinimax(siguiente_hijo, jugador, profundidad+1, profundidad_max, mejor_color, mejor_piece, mejor_dice, heuristic);
+            }
+        }
+    }
+    
+    //cout << "Saliendo de p = " << profundidad << " con h = " << mejor_h << endl;
+    
+    return mejor_h;
     return 2.0;
 }
 
@@ -392,7 +498,7 @@ double AIPlayer::Valoracion1(const Parchis &estado, int jugador)
                 }
                 else if (estado.getBoard().getPiece(c, j).type == home)
                 {
-                    puntuacion_jugador += 5;
+                    puntuacion_jugador -= 5;
                 }
                 else if (estado.getBoard().getPiece(c, j).type == goal){
                     puntuacion_jugador += 10;
@@ -419,7 +525,7 @@ double AIPlayer::Valoracion1(const Parchis &estado, int jugador)
                 }
                 else if (estado.getBoard().getPiece(c, j).type == home)
                 {
-                    puntuacion_oponente += 5;
+                    puntuacion_oponente -= 5;
                 }
                 else if (estado.getBoard().getPiece(c, j).type == goal){
                     puntuacion_oponente += 10;
