@@ -1,3 +1,5 @@
+//./bin/Parchis --p1 IA 3 "Rapido" --p2 IA 5 "Poda" -no-gui
+
 # include "AIPlayer.h"
 # include "Parchis.h"
 
@@ -55,6 +57,7 @@ void AIPlayer::think(color & c_piece, int & id_piece, int & dice) const{
             break;
         case 5:
             valor = Poda_AlfaBeta(*actual, actual->getCurrentPlayerId(), 0, PROFUNDIDAD_ALFABETA-2, c_piece, id_piece, dice, alpha, beta, Valoracion1);
+            cout << "Valoración tablero = " << valor << endl;
             /*
             if(valor == gana){
                 thinkMejorOpcion(c_piece, id_piece, dice);
@@ -62,7 +65,7 @@ void AIPlayer::think(color & c_piece, int & id_piece, int & dice) const{
             */
             break;
     }
-     cout << "Valor MiniMax: " << valor << "  Accion: " << str(c_piece) << " " << id_piece << " " << dice << endl;
+    //cout << "Valor MiniMax: " << valor << "  Accion: " << str(c_piece) << " " << id_piece << " " << dice << endl;
 
     
 }
@@ -225,7 +228,7 @@ double AIPlayer::busquedaMinimax(const Parchis &actual, int jugador, int profund
     color mejor_color;
     int mejor_piece;
     int mejor_dice;
-    int mejor_h;
+    double mejor_h;
     
     //Si estamos a la profundidad suficiente, operamos directamente sobre el estado
     if(profundidad_max == profundidad){
@@ -238,7 +241,7 @@ double AIPlayer::busquedaMinimax(const Parchis &actual, int jugador, int profund
         
         //Tomamos el primer hijo del nodo
         Parchis siguiente_hijo = actual.generateNextMove(last_c_piece, last_id_piece, last_dice);
-        
+        /*
         if(siguiente_hijo.gameOver()){  //Si la partida acaba en ese nodo
             //Tomamos la solución
             c_piece = last_c_piece;
@@ -252,10 +255,13 @@ double AIPlayer::busquedaMinimax(const Parchis &actual, int jugador, int profund
                 return pierde;
             }
         }
-
-        else{   //Si no ha terminado la partida
+        */
+        //else{   //Si no ha terminado la partida
             //Calculamos su valor h llamando recursivamente a la función
             int h = busquedaMinimax(siguiente_hijo, jugador, profundidad+1, profundidad_max, mejor_color, mejor_piece, mejor_dice, heuristic);
+            if(h == gana){
+                h /= (profundidad+1);
+            }
             //Tomamos el primer hijo como solucion de referencia
             c_piece = last_c_piece;
             id_piece = last_id_piece;
@@ -292,8 +298,11 @@ double AIPlayer::busquedaMinimax(const Parchis &actual, int jugador, int profund
                 //Generamos siguiente hijo
                 siguiente_hijo = actual.generateNextMove(last_c_piece, last_id_piece, last_dice);
                 h = busquedaMinimax(siguiente_hijo, jugador, profundidad+1, profundidad_max, mejor_color, mejor_piece, mejor_dice, heuristic);
+                if(h == gana){
+                    h /= (profundidad+1);
+                }
             }
-        }
+        //}
     }
     
     //cout << "Saliendo de p = " << profundidad << " con h = " << mejor_h << endl;
@@ -312,17 +321,17 @@ double AIPlayer::Poda_AlfaBeta(const Parchis &actual, int jugador, int profundid
     color mejor_color;
     int mejor_piece;
     int mejor_dice;
-    int h;
+    double h;
     
     //Si estamos a la profundidad frontera, operamos directamente sobre el estado
     if(profundidad_max == profundidad){
         h = heuristic(actual, jugador);
-        cout << "Nodo frontera... / h = " << h << endl;
+        //cout << "Nodo frontera... / h = " << h << endl;
         return h;
     }
     //Si no estamos a la suficiente profundidad
     else{
-        cout << "Nodo interno p = " << profundidad << endl;
+        //cout << "Nodo interno p = " << profundidad << endl;
         //Parada en nodos internos
         char a;
         //cin >> a ;
@@ -345,6 +354,9 @@ double AIPlayer::Poda_AlfaBeta(const Parchis &actual, int jugador, int profundid
             mejor_dice = last_dice;
             //Calculamos su valor h llamando recursivamente a la función
             int h = Poda_AlfaBeta(siguiente_hijo, jugador, profundidad+1, profundidad_max, mejor_color, mejor_piece, mejor_dice, alpha, beta, heuristic);
+            if(h == gana){
+                h /= (double) (profundidad+1);
+            }
             //Tomamos el primer hijo como solucion de referencia
             c_piece = last_c_piece;
             id_piece = last_id_piece;
@@ -356,11 +368,11 @@ double AIPlayer::Poda_AlfaBeta(const Parchis &actual, int jugador, int profundid
 
                 if(actual.getCurrentPlayerId() == jugador){    //Si es un nodo max
                     //Guardamos la jugada como mejor si su heurística es la mejor
-                    cout << "Valorando nodo max / p = " << profundidad;
-                    cout << "Alpha = " << alpha << "\tBeta = " << beta << endl;
+                    //cout << "Valorando nodo max / p = " << profundidad;
+                    //cout << "Alpha = " << alpha << "\tBeta = " << beta << endl;
                     
                     if(h > alpha){
-                        cout << "Nuevo mejor alpha = " << h << endl;
+                        //cout << "Nuevo mejor alpha = " << h << endl;
                         c_piece = last_c_piece;
                         id_piece = last_id_piece;
                         dice = last_dice;
@@ -368,10 +380,10 @@ double AIPlayer::Poda_AlfaBeta(const Parchis &actual, int jugador, int profundid
                     }
                 }
                 else{   //Si es un nodo min
-                    cout << "Valorando nodo max / p = " << profundidad;
-                    cout << "Alpha = " << alpha << "\tBeta = " << beta << endl;
+                    //cout << "Valorando nodo max / p = " << profundidad;
+                    //cout << "Alpha = " << alpha << "\tBeta = " << beta << endl;
                     if(h < beta){
-                        cout << "Nuevo mejor beta = " << h << endl;
+                        //cout << "Nuevo mejor beta = " << h << endl;
                         c_piece = last_c_piece;
                         id_piece = last_id_piece;
                         dice = last_dice;
@@ -385,6 +397,9 @@ double AIPlayer::Poda_AlfaBeta(const Parchis &actual, int jugador, int profundid
                 mejor_piece = last_id_piece;
                 mejor_dice = last_dice;
                 h = Poda_AlfaBeta(siguiente_hijo, jugador, profundidad+1, profundidad_max, mejor_color, mejor_piece, mejor_dice, alpha, beta, heuristic);
+                if(h == gana){
+                    h /= (double) (profundidad+1);
+                }
             }
         }
     }
@@ -470,17 +485,19 @@ double AIPlayer::ValoracionTest(const Parchis &estado, int jugador)
 
 double AIPlayer::Valoracion1(const Parchis &estado, int jugador)
 {
-
     int ganador = estado.getWinner();
     int oponente = (jugador + 1) % 2;
-    // Si hay un ganador, devuelvo más/menos infinito, según si he ganado yo o el oponente.
-    if (ganador == jugador)
-    {
-        return gana;
-    }
-    else if (ganador == oponente)
-    {
-        return pierde;
+    
+    if(estado.gameOver()){
+        // Si hay un ganador, devuelvo más/menos infinito, según si he ganado yo o el oponente.
+        if (ganador == jugador)
+        {
+            return gana;
+        }
+        else
+        {
+            return pierde;
+        }
     }
     else
     {
