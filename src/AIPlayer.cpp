@@ -258,7 +258,7 @@ double AIPlayer::busquedaMinimax(const Parchis &actual, int jugador, int profund
         */
         //else{   //Si no ha terminado la partida
             //Calculamos su valor h llamando recursivamente a la función
-            int h = busquedaMinimax(siguiente_hijo, jugador, profundidad+1, profundidad_max, mejor_color, mejor_piece, mejor_dice, heuristic);
+            double h = busquedaMinimax(siguiente_hijo, jugador, profundidad+1, profundidad_max, mejor_color, mejor_piece, mejor_dice, heuristic);
             if(h == gana){
                 h /= (profundidad+1);
             }
