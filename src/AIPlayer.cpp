@@ -23,6 +23,17 @@ bool AIPlayer::move(){
     return true;
 }
 
+void imprimeHijos(const Parchis & p){
+	color id_color = none;
+	int id_piece = -1, dice = -1, contador_hijos = 1;
+	Parchis sig = p.generateNextMove(id_color, id_piece, dice);
+	while(!(p == sig)){
+		cout << "Mov. " << contador_hijos << ":\tColor: " << id_color << "\tPieza:" << id_piece << "\tDado: " << dice << endl;
+		contador_hijos++;
+		sig = p.generateNextMove(id_color, id_piece, dice);
+	}
+}
+
 void AIPlayer::think(color & c_piece, int & id_piece, int & dice) const{
     // El siguiente código se proporciona como sugerencia para iniciar la implementación del agente.
     double valor; // Almacena el valor con el que se etiqueta el estado tras el proceso de busqueda.
@@ -48,7 +59,10 @@ void AIPlayer::think(color & c_piece, int & id_piece, int & dice) const{
             thinkMejorOpcion(c_piece, id_piece, dice);
             break;
         case 4:
+        	Valoracion1_verbose(*actual, actual->getCurrentPlayerId());
+            imprimeHijos(*actual);
             valor = busquedaMinimax(*actual, actual->getCurrentPlayerId(), 0, PROFUNDIDAD_MINIMAX, c_piece, id_piece, dice, Valoracion1);
+            cout << "Valoración tablero = " << valor << endl;
             /*
             if(valor == gana){
                 thinkMejorOpcion(c_piece, id_piece, dice);
@@ -56,6 +70,8 @@ void AIPlayer::think(color & c_piece, int & id_piece, int & dice) const{
             */
             break;
         case 5:
+            Valoracion1_verbose(*actual, actual->getCurrentPlayerId());
+            imprimeHijos(*actual);
             valor = Poda_AlfaBeta(*actual, actual->getCurrentPlayerId(), 0, PROFUNDIDAD_ALFABETA-2, c_piece, id_piece, dice, alpha, beta, Valoracion1);
             cout << "Valoración tablero = " << valor << endl;
             /*
@@ -233,6 +249,12 @@ double AIPlayer::busquedaMinimax(const Parchis &actual, int jugador, int profund
     //Si estamos a la profundidad suficiente, operamos directamente sobre el estado
     if(profundidad_max == profundidad){
         mejor_h = heuristic(actual, jugador);
+        //Si nos encontramos un nodo que gana la partida, dividimos el valor de la 
+        //heuristica por la profundidad para priorizar nodos menos profundos.
+        if(mejor_h == gana){
+        	mejor_h /= profundidad;
+        	cout << "Detectado nodo terminal premat. a p = " << profundidad << endl;
+        }
         //cout << "Nodo frontera... / h = " << mejor_h << endl;
     }
     //Si no estamos a la suficiente profundidad
@@ -241,22 +263,23 @@ double AIPlayer::busquedaMinimax(const Parchis &actual, int jugador, int profund
         
         //Tomamos el primer hijo del nodo
         Parchis siguiente_hijo = actual.generateNextMove(last_c_piece, last_id_piece, last_dice);
-        /*
+        
         if(siguiente_hijo.gameOver()){  //Si la partida acaba en ese nodo
+            cout << "Detectado nodo terminal premat. a p = " << profundidad << endl;
             //Tomamos la solución
             c_piece = last_c_piece;
             id_piece = last_id_piece;
             dice = last_dice;
 
             if(siguiente_hijo.getWinner() == jugador){  //Y ganamos
-                return gana;
+                return gana/(profundidad+1);
             }
             else{
                 return pierde;
             }
         }
-        */
-        //else{   //Si no ha terminado la partida
+        
+        else{   //Si no ha terminado la partida
             //Calculamos su valor h llamando recursivamente a la función
             double h = busquedaMinimax(siguiente_hijo, jugador, profundidad+1, profundidad_max, mejor_color, mejor_piece, mejor_dice, heuristic);
             if(h == gana){
@@ -298,11 +321,8 @@ double AIPlayer::busquedaMinimax(const Parchis &actual, int jugador, int profund
                 //Generamos siguiente hijo
                 siguiente_hijo = actual.generateNextMove(last_c_piece, last_id_piece, last_dice);
                 h = busquedaMinimax(siguiente_hijo, jugador, profundidad+1, profundidad_max, mejor_color, mejor_piece, mejor_dice, heuristic);
-                if(h == gana){
-                    h /= (profundidad+1);
-                }
             }
-        //}
+        }
     }
     
     //cout << "Saliendo de p = " << profundidad << " con h = " << mejor_h << endl;
@@ -337,10 +357,15 @@ double AIPlayer::Poda_AlfaBeta(const Parchis &actual, int jugador, int profundid
         //cin >> a ;
         
         //Si la partida acaba en este nodo, lo tratamos como un nodo frontera
-        if(actual.gameOver()){  
+        if(actual.gameOver()){  //Si la partida acaba en ese nodo
+            cout << "Detectado nodo terminal premat. a p = " << profundidad << endl;
             //Tomamos la solución
-            if(actual.getWinner() == jugador){
-                return gana/profundidad;
+            c_piece = last_c_piece;
+            id_piece = last_id_piece;
+            dice = last_dice;
+
+            if(actual.getWinner() == jugador){  //Y ganamos
+                return gana/(profundidad+1);
             }
             else{
                 return pierde;
@@ -516,20 +541,28 @@ double AIPlayer::Valoracion1(const Parchis &estado, int jugador)
             for (int j = 0; j < num_pieces; j++)
             {
                 //Valoro positivamente que la ficha esté cerca de la meta
-                puntuacion_jugador += (73 - estado.distanceToGoal(c, j)) / 2;
-                
+                int distancia_meta = estado.distanceToGoal(c, j);
+                puntuacion_jugador += (73 - distancia_meta) / 2;
+                if(distancia_meta == 0){
+                	puntuacion_jugador += 10;
+                }
+                else if(distancia_meta < 8){
+                	puntuacion_jugador += 5;
+                }
                 // Valoro positivamente que la ficha esté en casilla segura o meta.
-                if (!estado.isSafePiece(c, j))
+                if (estado.isSafePiece(c, j))
                 {
-                    puntuacion_jugador -= 5;
+                    puntuacion_jugador += 3;
                 }
                 else if (estado.getBoard().getPiece(c, j).type == home)
                 {
                     puntuacion_jugador -= 5;
                 }
+                /*
                 else if (estado.getBoard().getPiece(c, j).type == goal){
                     puntuacion_jugador += 10;
                 }
+                */
             }
         }
 
@@ -543,12 +576,18 @@ double AIPlayer::Valoracion1(const Parchis &estado, int jugador)
             for (int j = 0; j < num_pieces; j++)
             {
                 //Valoro positivamente que la ficha esté cerca de la meta
-                puntuacion_oponente += (73 - estado.distanceToGoal(c, j)) / 2;
-
-                if (!estado.isSafePiece(c, j))
+                //Valoro positivamente que la ficha esté cerca de la meta
+                int distancia_meta = estado.distanceToGoal(c, j);
+                puntuacion_oponente += (73 - distancia_meta) / 2;
+                if(distancia_meta == 0){
+                	puntuacion_oponente += 10;
+                }
+				else if(distancia_meta < 8){
+                	puntuacion_oponente += 5;
+                }
+                if (estado.isSafePiece(c, j))
                 {
-                    // Valoro negativamente que la ficha esté en casilla segura o meta.
-                    puntuacion_oponente -= 5;
+                    puntuacion_oponente += 3;
                 }
                 else if (estado.getBoard().getPiece(c, j).type == home)
                 {
@@ -560,6 +599,122 @@ double AIPlayer::Valoracion1(const Parchis &estado, int jugador)
             }
         }
 
+        // Devuelvo la puntuación de mi jugador menos la puntuación del oponente.
+        return puntuacion_jugador - puntuacion_oponente;
+    }
+}
+
+double AIPlayer::Valoracion1_verbose(const Parchis &estado, int jugador)
+{
+    int ganador = estado.getWinner();
+    int oponente = (jugador + 1) % 2;
+    
+    if(estado.gameOver()){
+        // Si hay un ganador, devuelvo más/menos infinito, según si he ganado yo o el oponente.
+        if (ganador == jugador)
+        {
+        	cout << "Juego acabado: Ganaste. GG" << endl;
+            return gana;
+        }
+        else
+        {
+        	cout << "Juego acabado: Perdiste. GG" << endl;
+            return pierde;
+        }
+    }
+    else
+    {
+        // Colores que juega mi jugador y colores del oponente
+        vector<color> my_colors = estado.getPlayerColors(jugador);
+        vector<color> op_colors = estado.getPlayerColors(oponente);
+
+		cout << "Valoracion del jugador bueno: " << endl;
+        // Recorro todas las fichas de mi jugador
+        int puntuacion_jugador = 0;
+        //int puntuacion_color = 0;
+        // Recorro colores de mi jugador.
+        for (int i = 0; i < my_colors.size(); i++)
+        {
+            color c = my_colors[i];
+            cout << "Color " << str(c) << ":" << endl;
+            // Recorro las fichas de ese color.
+            for (int j = 0; j < num_pieces; j++)
+            {
+                //Valoro positivamente que la ficha esté cerca de la meta
+                cout << "Ficha " << j << endl;
+                puntuacion_jugador += (73 - estado.distanceToGoal(c, j)) / 2;
+                cout << "Distancia a meta: " << estado.distanceToGoal(c, j) << endl;
+                cout << "Puntos por distancia a meta=" << (73 - estado.distanceToGoal(c, j)) / 2;
+                
+                if(estado.distanceToGoal(c, j) < 1){
+                	cout << "10 puntos extra por estar en meta" << endl;
+                	puntuacion_jugador += 10;
+                }
+                else if(estado.distanceToGoal(c, j) < 8){
+                	cout << "5 puntos extra por estar en pasillo final" << endl;
+                	puntuacion_jugador += 5;
+                }
+                // Valoro positivamente que la ficha esté en casilla segura o meta.
+                if (!estado.isSafePiece(c, j))
+                {
+                	cout << "3 puntos extra por estar en casilla segura" << endl;
+                    puntuacion_jugador += 3;
+                }
+                else if (estado.getBoard().getPiece(c, j).type == home)
+                {
+                	cout << "Penalizacion de 5 puntos por estar en casa" << endl;
+                    puntuacion_jugador -= 5;
+                }
+                else if (estado.getBoard().getPiece(c, j).type == goal){
+                	cout << "10 puntos extra por estar en meta" << endl;
+                    puntuacion_jugador += 10;
+                }
+            }
+        }
+        
+		cout << "Valoracion del jugador maligno que me quiere hacer danio :( : " << endl;
+        // Recorro todas las fichas del oponente
+        int puntuacion_oponente = 0;
+        // Recorro colores del oponente.
+        for (int i = 0; i < op_colors.size(); i++)
+        {
+            color c = op_colors[i];
+            cout << "Color " << str(c) << ":" << endl;
+            // Recorro las fichas de ese color.
+            for (int j = 0; j < num_pieces; j++)
+            {
+            	cout << "Ficha " << j << endl;
+                //Valoro positivamente que la ficha esté cerca de la meta
+                puntuacion_oponente += (73 - estado.distanceToGoal(c, j)) / 2;
+                cout << "Distancia a meta: " << estado.distanceToGoal(c, j) << endl;
+                cout << "Puntos por distancia a meta=" << (73 - estado.distanceToGoal(c, j)) / 2 << endl;
+                if(estado.distanceToGoal(c, j) < 1){
+                	cout << "10 puntos extra por estar en meta" << endl;
+                	puntuacion_oponente += 10;
+                }
+				else if(estado.distanceToGoal(c, j) < 8){
+                	cout << "5 puntos extra por estar en pasillo final" << endl;
+                	puntuacion_oponente += 5;
+                }
+                if (!estado.isSafePiece(c, j))
+                {
+                	cout << "3 puntos extra por estar en casilla segura" << endl;
+                    puntuacion_oponente += 3;
+                }
+                else if (estado.getBoard().getPiece(c, j).type == home)
+                {
+                	cout << "Penalizacion de 5 puntos por estar en casa" << endl;
+                    puntuacion_oponente -= 5;
+                }
+                /* //no funciona hacer esa comprobación (sorprendentemente)
+                else if (estado.getBoard().getPiece(c, j).type == goal){
+                	cout << "10 puntos extra por estar en meta" << endl;
+                    puntuacion_oponente += 10;
+                }
+                */
+            }
+        }
+		cout << "***************Valoracion final = " << puntuacion_jugador - puntuacion_oponente << "***************" << endl; 
         // Devuelvo la puntuación de mi jugador menos la puntuación del oponente.
         return puntuacion_jugador - puntuacion_oponente;
     }
