@@ -405,6 +405,8 @@ double AIPlayer::Poda_AlfaBeta(const Parchis &actual, int jugador, int profundid
 double AIPlayer::ValoracionTest(const Parchis &estado, int jugador)
 {
     // Heurística de prueba proporcionada para validar el funcionamiento del algoritmo de búsqueda.
+
+
     int ganador = estado.getWinner();
     int oponente = (jugador + 1) % 2;
 
@@ -437,7 +439,7 @@ double AIPlayer::ValoracionTest(const Parchis &estado, int jugador)
                 {
                     puntuacion_jugador++;
                 }
-                else if (estado.getBoard().getPiece(c, j).type == home)
+                else if (estado.getBoard().getPiece(c, j).type == goal)
                 {
                     puntuacion_jugador += 5;
                 }
@@ -458,7 +460,7 @@ double AIPlayer::ValoracionTest(const Parchis &estado, int jugador)
                     // Valoro negativamente que la ficha esté en casilla segura o meta.
                     puntuacion_oponente++;
                 }
-                else if (estado.getBoard().getPiece(c, j).type == home)
+                else if (estado.getBoard().getPiece(c, j).type == goal)
                 {
                     puntuacion_oponente += 5;
                 }
@@ -524,12 +526,14 @@ double AIPlayer::Valoracion1(const Parchis &estado, int jugador)
             }
         }
         
+        /*
         if(puntuacion_color[0] > puntuacion_color[1]){
         	puntuacion_color[1] /= 2;
         }
         else{
         	puntuacion_color[0] /= 2;
         }
+        */
         puntuacion_jugador = puntuacion_color[0] + puntuacion_color[1];
         
         
@@ -568,12 +572,14 @@ double AIPlayer::Valoracion1(const Parchis &estado, int jugador)
             }
         }
 		
-		if(puntuacion_color[0] > puntuacion_color[1]){
+	/*
+	if(puntuacion_color[0] > puntuacion_color[1]){
         	puntuacion_color[1] /= 2;
         }
         else{
         	puntuacion_color[0] /= 2;
         }
+        */
         puntuacion_oponente = puntuacion_color[0] + puntuacion_color[1];
         
         // Devuelvo la puntuación de mi jugador menos la puntuación del oponente.

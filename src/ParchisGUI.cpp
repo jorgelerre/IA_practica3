@@ -763,7 +763,7 @@ void ParchisGUI::updateSprites(){
     }
 
     cout << "last_dice: " << last_dice << endl;
-
+    
     if(model->getCurrentPlayer().canUseGUI()){
         this->notPlayableLock(false);
     }
@@ -788,7 +788,6 @@ void ParchisGUI::updateSprites(){
                 this->pieces[c][j].setLocked(true, *this);
             }
         }
-
         Dice dice = model->getDice();
         for(int j = 0; j < this->dices[c].size(); j++){
             DiceSprite* current = &this->dices[c][j];
