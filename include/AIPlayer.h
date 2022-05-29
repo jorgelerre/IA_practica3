@@ -84,7 +84,10 @@ class AIPlayer: public Player{
          * @return double 
          */
         static double Valoracion1(const Parchis &estado, int jugador);
+        static double Valoracion2(const Parchis &estado, int jugador);
+        static double Valoracion3(const Parchis &estado, int jugador);
         static double Valoracion1_verbose(const Parchis &estado, int jugador);
+        static double Valoracion3_verbose(const Parchis &estado, int jugador);
         /**
          * @brief Algoritmo de búsqueda minimax.
          * 
