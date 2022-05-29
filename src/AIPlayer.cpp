@@ -1,13 +1,16 @@
-//./bin/Parchis --p1 IA 3 "Rapido" --p2 IA 5 "Poda" -no-gui
+//./bin/Parchis --p1 Ninja 1 "Ninja" --p2 AI 6 "Poda" --no-gui
 
 # include "AIPlayer.h"
 # include "Parchis.h"
+
+#define CASILLASCASAMETA 73
 
 const double masinf = 9999999999.0, menosinf = -9999999999.0;
 const double gana = masinf - 1, pierde = menosinf + 1;
 const int num_pieces = 4;
 const int PROFUNDIDAD_MINIMAX = 4;  // Umbral maximo de profundidad para el metodo MiniMax
 const int PROFUNDIDAD_ALFABETA = 6; // Umbral maximo de profundidad para la poda Alfa_Beta
+bool verbose = false;
 
 bool AIPlayer::move(){
     cout << "Realizo un movimiento automatico" << endl;
@@ -63,22 +66,25 @@ void AIPlayer::think(color & c_piece, int & id_piece, int & dice) const{
             imprimeHijos(*actual);
             valor = busquedaMinimax(*actual, actual->getCurrentPlayerId(), 0, PROFUNDIDAD_MINIMAX, c_piece, id_piece, dice, Valoracion1);
             cout << "Valoración tablero = " << valor << endl;
-            /*
-            if(valor == gana){
-                thinkMejorOpcion(c_piece, id_piece, dice);
-            }
-            */
             break;
         case 5:
             Valoracion1_verbose(*actual, actual->getCurrentPlayerId());
             imprimeHijos(*actual);
-            valor = Poda_AlfaBeta(*actual, actual->getCurrentPlayerId(), 0, PROFUNDIDAD_ALFABETA-2, c_piece, id_piece, dice, alpha, beta, Valoracion1);
+            valor = Poda_AlfaBeta(*actual, actual->getCurrentPlayerId(), 0, PROFUNDIDAD_ALFABETA, c_piece, id_piece, dice, alpha, beta, Valoracion1);
             cout << "Valoración tablero = " << valor << endl;
-            /*
-            if(valor == gana){
-                thinkMejorOpcion(c_piece, id_piece, dice);
-            }
-            */
+            break;
+        case 6:
+            Valoracion1_verbose(*actual, actual->getCurrentPlayerId());
+            //imprimeHijos(*actual);
+            valor = Poda_AlfaBeta(*actual, actual->getCurrentPlayerId(), 0, PROFUNDIDAD_ALFABETA, c_piece, id_piece, dice, alpha, beta, Valoracion2);
+            cout << "Valoración tablero = " << valor << endl;
+            break;
+        case 7:
+        	verbose = true;
+        	Valoracion3_verbose(*actual, actual->getCurrentPlayerId());
+        	verbose = false;
+        	valor = Poda_AlfaBeta(*actual, actual->getCurrentPlayerId(), 0, PROFUNDIDAD_ALFABETA, c_piece, id_piece, dice, alpha, beta, Valoracion3_verbose);
+            cout << "Valoración tablero = " << valor << endl;
             break;
     }
     //cout << "Valor MiniMax: " << valor << "  Accion: " << str(c_piece) << " " << id_piece << " " << dice << endl;
@@ -627,7 +633,7 @@ double AIPlayer::Valoracion1_verbose(const Parchis &estado, int jugador)
                 cout << "Ficha " << j << endl;
                 puntuacion_jugador += (73 - estado.distanceToGoal(c, j)) / 2;
                 cout << "Distancia a meta: " << estado.distanceToGoal(c, j) << endl;
-                cout << "Puntos por distancia a meta=" << (73 - estado.distanceToGoal(c, j)) / 2;
+                cout << "Puntos por distancia a meta=" << (73 - estado.distanceToGoal(c, j)) / 2 << endl;
                 
                 if(estado.distanceToGoal(c, j) < 1){
                 	cout << "10 puntos extra por estar en meta" << endl;
@@ -702,3 +708,603 @@ double AIPlayer::Valoracion1_verbose(const Parchis &estado, int jugador)
         return puntuacion_jugador - puntuacion_oponente;
     }
 }
+
+double AIPlayer::Valoracion2(const Parchis &estado, int jugador)
+{
+    int ganador = estado.getWinner();
+    int oponente = (jugador + 1) % 2;
+    
+    if(estado.gameOver()){
+        // Si hay un ganador, devuelvo más/menos infinito, según si he ganado yo o el oponente.
+        if (ganador == jugador)
+        {
+            return gana;
+        }
+        else
+        {
+            return pierde;
+        }
+    }
+    else
+    {
+        // Colores que juega mi jugador y colores del oponente
+        vector<color> my_colors = estado.getPlayerColors(jugador);
+        vector<color> op_colors = estado.getPlayerColors(oponente);
+
+        // Recorro todas las fichas de mi jugador
+        int puntuacion_jugador = 0;
+        int puntuacion_color[2];
+        // Recorro colores de mi jugador.
+        for (int i = 0; i < my_colors.size(); i++)
+        {
+            color c = my_colors[i];
+            // Recorro las fichas de ese color.
+            for (int j = 0; j < num_pieces; j++)
+            {
+                //Valoro positivamente que la ficha esté cerca de la meta
+                int distancia_meta = estado.distanceToGoal(c, j);
+                puntuacion_color[i] += (73 - distancia_meta) / 2;
+                
+                if(distancia_meta == 0){
+                	puntuacion_color[i] += 20;	//Bonus por ficha en meta
+                }
+                else if(distancia_meta < 8){	//Bonus por ficha en camino final
+                	puntuacion_color[i] += 1;
+                }
+                // Valoro positivamente que la ficha esté en casilla segura.
+                if (estado.isSafePiece(c, j))
+                {
+                    puntuacion_color[i] += 3;
+                }
+                //Valoro negativamente que la ficha esté en casa.
+                if (estado.getBoard().getPiece(c, j).type == home)
+                {
+                    puntuacion_color[i] -= 5;
+                }
+                
+                
+            }
+        }
+        
+        
+        if(puntuacion_color[0] > puntuacion_color[1]){
+        	puntuacion_color[1] /= 2;
+        }
+        else{
+        	puntuacion_color[0] /= 2;
+        }
+        
+        puntuacion_jugador = puntuacion_color[0] + puntuacion_color[1];
+        
+        
+
+        // Recorro todas las fichas del oponente
+        int puntuacion_oponente = 0;
+        puntuacion_color[0] = puntuacion_color[1] = 0;
+        // Recorro colores del oponente.
+        for (int i = 0; i < op_colors.size(); i++)
+        {
+            color c = op_colors[i];
+            // Recorro las fichas de ese color.
+            for (int j = 0; j < num_pieces; j++)
+            {
+                //Valoro positivamente que la ficha esté cerca de la meta
+                //Valoro positivamente que la ficha esté cerca de la meta
+                int distancia_meta = estado.distanceToGoal(c, j);
+                puntuacion_color[i] += (73 - distancia_meta) / 2;
+                if(distancia_meta == 0){
+                	puntuacion_color[i] += 10;
+                }
+				else if(distancia_meta < 8){
+                	puntuacion_color[i] += 5;
+                }
+                if (estado.isSafePiece(c, j))
+                {
+                    puntuacion_color[i] += 3;
+                }
+                else if (estado.getBoard().getPiece(c, j).type == home)
+                {
+                    puntuacion_color[i] -= 5;
+                }
+                else if (estado.getBoard().getPiece(c, j).type == goal){
+                    puntuacion_color[i] += 10;
+                }
+            }
+        }
+		
+	
+	if(puntuacion_color[0] > puntuacion_color[1]){
+        	puntuacion_color[1] /= 2;
+        }
+        else{
+        	puntuacion_color[0] /= 2;
+        }
+        
+        puntuacion_oponente = puntuacion_color[0] + puntuacion_color[1];
+        
+        // Devuelvo la puntuación de mi jugador menos la puntuación del oponente.
+        return puntuacion_jugador - puntuacion_oponente;
+    }
+}
+
+//Tenemos en cuenta TODOS los factores para ir despues ajustando el porcentaje en que
+//influirá cada uno de ellos.
+double AIPlayer::Valoracion3(const Parchis &estado, int jugador){
+	int ganador = estado.getWinner();
+    int oponente = (jugador + 1) % 2;
+    
+    if(estado.gameOver()){
+        // Si hay un ganador, devuelvo más/menos infinito, según si he ganado yo o el oponente.
+        if (ganador == jugador)
+        {
+        	//cout << "Victoria jugador" << endl;
+            return gana;
+        }
+        else
+        {
+        	//cout << "Victoria oponente" << endl;
+            return pierde;
+        }
+    }
+    else
+    {
+        double coef_casa = -5,
+        	coef_pasillo_final = 1,
+        	coef_meta = 20,
+        	coef_barrera = -3,
+        	coef_segura = 3,
+        	coef_ficha_comible = 5,
+        	coef_distancia_meta = 0.5,
+        	coef_balance_colores = 0.5;
+        Box meta;
+        meta.type = goal;
+        // Colores que juega mi jugador y colores del oponente
+        vector<color> my_colors = estado.getPlayerColors(jugador);
+        vector<color> op_colors = estado.getPlayerColors(oponente);
+
+        // Recorro todas las fichas de mi jugador
+        double puntuacion_jugador = 0;
+        double puntuacion_color[2];
+        puntuacion_color[0] = puntuacion_color[1] = 0;
+        // Recorro colores de mi jugador.
+        //cout << "******************************Puntuacion jugador******************************" << endl;
+        for (int i = 0; i < my_colors.size(); i++)
+        {
+            color c = my_colors[i];
+            meta.col = c;
+            //cout << "/*/*/*/*/Color " << str(c) << "\\*\\*\\*\\*\\"<< endl;
+            // Recorro las fichas de ese color.
+            for (int j = 0; j < num_pieces; j++)
+            {
+            	//cout << "////Pieza " << j << ":" << endl;
+                
+                Box casilla_actual = estado.getBoard().getPiece(c,j);
+            	
+                //Valoro positivamente que la ficha esté cerca de la meta
+                int distancia_meta = estado.distanceToGoal(c, casilla_actual);
+                puntuacion_color[i] += (CASILLASCASAMETA - distancia_meta) * coef_distancia_meta;
+                //cout << "Distancia a meta = " << distancia_meta;
+                //cout << "\tPuntuacion: " << (CASILLASCASAMETA - distancia_meta) * coef_distancia_meta << endl;
+                
+                if(distancia_meta == 0){
+                	puntuacion_color[i] += coef_meta;	//Bonus por ficha en meta
+                	//cout << "Puntos por estar en meta = " << coef_meta << endl;
+                }
+                else if(distancia_meta < 8){	//Bonus por ficha en camino final
+                	puntuacion_color[i] += coef_pasillo_final;
+                	//cout << "Puntos por estar en pasillo final = " << coef_pasillo_final << endl;
+                }
+                // Valoro positivamente que la ficha esté en casilla segura.
+                if (estado.isSafePiece(c, j))
+                {
+                    puntuacion_color[i] += coef_segura;
+                    //cout << "Puntos por estar segura = " << coef_segura << endl;
+                }
+                //Valoro positivamente que hayan cerca y por delante fichas del otro jugador
+                //(puede que en el futuro coma)
+                //cout << "Comprobando fichas por delante..." << endl;
+            	for (int dado = 1; dado <= 6; dado++){
+            		Box casilla_delante = estado.computeMove(c, casilla_actual, dado);
+            		//cout << "Pass compute con dado = " << dado << endl;
+            		if(casilla_delante.type == normal){
+            			vector<pair <color, int>> fichas_casilla = estado.boxState(casilla_delante);
+            			//cout << "Pass boxState con dado = " << dado << endl;
+            			for(int id_ficha = 0; id_ficha < fichas_casilla.size(); id_ficha++){
+            				//cout << "Comprobando ficha " << id_ficha << endl;
+            				pair <color, int> pieza = fichas_casilla[id_ficha];
+            				if(pieza.first != my_colors[0] && pieza.first != my_colors[1]){
+            					puntuacion_color[i] += coef_ficha_comible;
+            					//cout << "Puntos por rival cercano (" << str(pieza.first) << "," << pieza.second << ") con dado " << dado << "= " << coef_segura << endl;
+            				}
+            			}
+            		}
+            	}
+                //cout << "Fin fichas por delante..." << endl;
+                //Valoro negativamente que la ficha esté en casa.
+                if (casilla_actual.type == home)
+                {
+                    puntuacion_color[i] += coef_casa;
+                    //cout << "Puntos por casilla en casa: " << coef_casa << endl;
+                }
+                //Valoro negativamente que hayan barreras de otros colores entre la pos. actual y meta.
+                vector<color> barreras = estado.anyWall(casilla_actual, meta);
+                for(int i = 0; i < barreras.size(); i++){
+                	if(barreras[i] != c){
+                		puntuacion_color[i] += coef_barrera;
+                		//cout << "Puntos por barrera de color " << str(barreras[i]) << ": " << coef_barrera << endl;
+                	}
+                }
+            }
+            //cout << endl << "*************************************************************************************"<< endl;
+        }
+        
+        //cout << "Puntuacion color 0: " << puntuacion_color[0] << endl;
+        //cout << "Puntuacion color 1: " << puntuacion_color[1] << endl;
+        //cout << "Coeficiente de ponderacion de colores = " << coef_balance_colores << endl;
+        if(puntuacion_color[0] > puntuacion_color[1]){
+        	puntuacion_color[0] *= coef_balance_colores;
+        	puntuacion_color[1] *= (1-coef_balance_colores);
+        }
+        else{
+        	puntuacion_color[0] *= (1-coef_balance_colores);
+        	puntuacion_color[1] *= coef_balance_colores;
+        }
+        
+        
+        puntuacion_jugador = puntuacion_color[0] + puntuacion_color[1];
+        //cout << "Puntuacion jugador = " << puntuacion_jugador << endl;
+        //cout << endl << "*************************************************************************************"<< endl;
+		//cout << "******************************Puntuacion oponente******************************" << endl;
+        // Recorro todas las fichas del oponente
+        double puntuacion_oponente = 0;
+        puntuacion_color[0] = puntuacion_color[1] = 0;
+        // Recorro colores del oponente.
+        for (int i = 0; i < op_colors.size(); i++)
+        {
+            color c = op_colors[i];
+            meta.col = c;
+            //cout << "/*/*/*/*/Color " << str(c) << "\\*\\*\\*\\*\\"<< endl;
+            // Recorro las fichas de ese color.
+            for (int j = 0; j < num_pieces; j++)
+            {
+            	//cout << "////Pieza " << j << ":" << endl;
+                
+                Box casilla_actual = estado.getBoard().getPiece(c,j);
+            	
+                //Valoro positivamente que la ficha esté cerca de la meta
+                int distancia_meta = estado.distanceToGoal(c, casilla_actual);
+                puntuacion_color[i] += (CASILLASCASAMETA - distancia_meta) * coef_distancia_meta;
+                //cout << "Distancia a meta = " << distancia_meta;
+                //cout << "\tPuntuacion: " << (CASILLASCASAMETA - distancia_meta) * coef_distancia_meta << endl;
+                
+                if(distancia_meta == 0){
+                	puntuacion_color[i] += coef_meta;	//Bonus por ficha en meta
+                	//cout << "Puntos por estar en meta = " << coef_meta << endl;
+                }
+                else if(distancia_meta < 8){	//Bonus por ficha en camino final
+                	puntuacion_color[i] += coef_pasillo_final;
+                	//cout << "Puntos por estar en pasillo final = " << coef_pasillo_final << endl;
+                }
+                // Valoro positivamente que la ficha esté en casilla segura.
+                if (estado.isSafePiece(c, j))
+                {
+                    puntuacion_color[i] += coef_segura;
+                    //cout << "Puntos por estar segura = " << coef_segura << endl;
+                }
+                //Valoro positivamente que hayan cerca y por delante fichas del otro jugador
+                //(puede que en el futuro coma)
+                
+            	//cout << "Comprobando fichas por delante..." << endl;
+            	for (int dado = 1; dado <= 6; dado++){
+            		Box casilla_delante = estado.computeMove(c, casilla_actual, dado);
+            		if(casilla_delante.type == normal){
+            			vector<pair <color, int>> fichas_casilla = estado.boxState(casilla_delante);
+            			for(int id_ficha = 0; id_ficha < fichas_casilla.size(); id_ficha++){
+            				pair <color, int> pieza = fichas_casilla[id_ficha];
+            				if(pieza.first != op_colors[0] && pieza.first != op_colors[1]){
+            					puntuacion_color[i] += coef_ficha_comible;
+            					//cout << "Puntos por rival cercano (" << str(pieza.first) << "," << pieza.second << ") con dado " << dado << "= " << coef_segura << endl;
+            				}
+            			}
+            		}
+            	}
+                //cout << "Fin fichas por delante..." << endl;
+                
+                //Valoro negativamente que la ficha esté en casa.
+                if (estado.getBoard().getPiece(c, j).type == home)
+                {
+                    puntuacion_color[i] += coef_casa;
+                    //cout << "Puntos por casilla en casa: " << coef_casa << endl;
+                }
+                //Valoro negativamente que hayan barreras de otros colores entre la pos. actual y meta.
+                vector<color> barreras = estado.anyWall(casilla_actual, meta);
+                for(int i = 0; i < barreras.size(); i++){
+                	if(barreras[i] != c){
+                		puntuacion_color[i] += coef_barrera;
+                		//cout << "Puntos por barrera de color " << str(barreras[i]) << ": " << coef_barrera << endl;
+                	}
+                }
+            }
+            //cout << endl << "*************************************************************************************"<< endl;
+        }
+        
+        //cout << "Puntuacion color 0: " << puntuacion_color[0] << endl;
+        //cout << "Puntuacion color 1: " << puntuacion_color[1] << endl;
+        //cout << "Coeficiente de ponderacion de colores = " << coef_balance_colores << endl;
+        if(puntuacion_color[0] > puntuacion_color[1]){
+        	puntuacion_color[0] *= coef_balance_colores;
+        	puntuacion_color[1] *= (1-coef_balance_colores);
+        }
+        else{
+        	puntuacion_color[0] *= (1-coef_balance_colores);
+        	puntuacion_color[1] *= coef_balance_colores;
+        }
+        
+        puntuacion_oponente = puntuacion_color[0] + puntuacion_color[1];
+        //cout << "Puntuacion oponente = " << puntuacion_oponente << endl;
+        // Devuelvo la puntuación de mi jugador menos la puntuación del oponente.
+        //cout << "Valoracion final = " << puntuacion_jugador - puntuacion_oponente << endl;
+        return puntuacion_jugador - puntuacion_oponente;
+    }
+}
+
+double AIPlayer::Valoracion3_verbose(const Parchis &estado, int jugador){
+	int ganador = estado.getWinner();
+    int oponente = (jugador + 1) % 2;
+    
+    if(estado.gameOver()){
+        // Si hay un ganador, devuelvo más/menos infinito, según si he ganado yo o el oponente.
+        if (ganador == jugador)
+        {
+        	if(verbose)
+        		cout << "Victoria jugador" << endl;
+            return gana;
+        }
+        else
+        {
+        	if(verbose)
+        		cout << "Victoria oponente" << endl;
+            return pierde;
+        }
+    }
+    else
+    {
+        double coef_casa = -100,
+        	coef_pasillo_final = 1,
+        	coef_meta = 5,
+        	coef_barrera = -3,
+        	coef_segura = 3,
+        	coef_ficha_comible = 3,
+        	coef_distancia_meta = 0.4,
+        	coef_balance_colores = 0.5;
+        Box meta;
+        meta.type = goal;
+        // Colores que juega mi jugador y colores del oponente
+        vector<color> my_colors = estado.getPlayerColors(jugador);
+        vector<color> op_colors = estado.getPlayerColors(oponente);
+
+        // Recorro todas las fichas de mi jugador
+        double puntuacion_jugador = 0;
+        double puntuacion_color[2];
+        puntuacion_color[0] = puntuacion_color[1] = 0;
+        // Recorro colores de mi jugador.
+        if(verbose)
+        	cout << "******************************Puntuacion jugador******************************" << endl;
+        for (int i = 0; i < my_colors.size(); i++)
+        {
+            color c = my_colors[i];
+            meta.col = c;
+            if(verbose)
+            	cout << "/*/*/*/*/Color " << str(c) << "\\*\\*\\*\\*\\"<< endl;
+            // Recorro las fichas de ese color.
+            for (int j = 0; j < num_pieces; j++)
+            {
+            	if(verbose)
+            		cout << "////Pieza " << j << ":" << endl;
+                
+                Box casilla_actual = estado.getBoard().getPiece(c,j);
+            	
+                //Valoro positivamente que la ficha esté cerca de la meta
+                int distancia_meta = estado.distanceToGoal(c, casilla_actual);
+                puntuacion_color[i] += (CASILLASCASAMETA - distancia_meta) * coef_distancia_meta;
+                if(verbose){
+		            cout << "Distancia a meta = " << distancia_meta;
+		            cout << "\tPuntuacion: " << (CASILLASCASAMETA - distancia_meta) * coef_distancia_meta << endl;
+                }
+                if(distancia_meta == 0){
+                	puntuacion_color[i] += coef_meta;	//Bonus por ficha en meta
+                	if(verbose)
+                		cout << "Puntos por estar en meta = " << coef_meta << endl;
+                }
+                else if(distancia_meta < 8){	//Bonus por ficha en camino final
+                	puntuacion_color[i] += coef_pasillo_final;
+                	if(verbose)
+                		cout << "Puntos por estar en pasillo final = " << coef_pasillo_final << endl;
+                }
+                // Valoro positivamente que la ficha esté en casilla segura.
+                if (estado.isSafePiece(c, j))
+                {
+                    puntuacion_color[i] += coef_segura;
+                    if(verbose)
+                    	cout << "Puntos por estar segura = " << coef_segura << endl;
+                }
+                //Valoro positivamente que hayan cerca y por delante fichas del otro jugador
+                //(puede que en el futuro coma)
+                if(verbose)
+                	cout << "Comprobando fichas por delante..." << endl;
+            	for (int dado = 1; dado <= 6; dado++){
+            		Box casilla_delante = estado.computeMove(c, casilla_actual, dado);
+            		if(verbose)
+            			//cout << "Pass compute con dado = " << dado << endl;
+            		if(casilla_delante.type == normal){
+            			vector<pair <color, int>> fichas_casilla = estado.boxState(casilla_delante);
+            			if(verbose)
+            				//cout << "Pass boxState con dado = " << dado << endl;
+            			for(int id_ficha = 0; id_ficha < fichas_casilla.size(); id_ficha++){
+            				if(verbose)
+            					cout << "Comprobando ficha " << id_ficha << endl;
+            				pair <color, int> pieza = fichas_casilla[id_ficha];
+            				if(pieza.first != my_colors[0] && pieza.first != my_colors[1]){
+            					puntuacion_color[i] += coef_ficha_comible;
+            					if(verbose)
+            						cout << "Puntos por rival cercano (" << str(pieza.first) << "," << pieza.second << ") con dado " << dado << "= " << coef_segura << endl;
+            				}
+            			}
+            		}
+            	}
+                if(verbose)
+                	cout << "Fin fichas por delante..." << endl;
+                //Valoro negativamente que la ficha esté en casa.
+                if (casilla_actual.type == home)
+                {
+                    puntuacion_color[i] += coef_casa;
+                    if(verbose)
+                    	cout << "Puntos por casilla en casa: " << coef_casa << endl;
+                }
+                //Valoro negativamente que hayan barreras de otros colores entre la pos. actual y meta.
+                vector<color> barreras = estado.anyWall(casilla_actual, meta);
+                for(int i = 0; i < barreras.size(); i++){
+                	if(barreras[i] != my_colors[0] && barreras[i] != my_colors[1]){
+                		puntuacion_color[i] += coef_barrera;
+                		if(verbose)
+                			cout << "Puntos por barrera de color " << str(barreras[i]) << ": " << coef_barrera << endl;
+                	}
+                }
+            }
+            if(verbose)
+            	cout << endl << "*************************************************************************************"<< endl;
+        }
+        
+        if(verbose){
+		    cout << "Puntuacion color 0: " << puntuacion_color[0] << endl;
+		    cout << "Puntuacion color 1: " << puntuacion_color[1] << endl;
+		    cout << "Coeficiente de ponderacion de colores = " << coef_balance_colores << endl;
+		}
+        if(puntuacion_color[0] > puntuacion_color[1]){
+        	puntuacion_color[0] *= coef_balance_colores;
+        	puntuacion_color[1] *= (1-coef_balance_colores);
+        }
+        else{
+        	puntuacion_color[0] *= (1-coef_balance_colores);
+        	puntuacion_color[1] *= coef_balance_colores;
+        }
+        
+        
+        puntuacion_jugador = puntuacion_color[0] + puntuacion_color[1];
+       	if(verbose){
+		    cout << "Puntuacion jugador = " << puntuacion_jugador << endl;
+		    cout << endl << "*************************************************************************************"<< endl;
+			cout << "******************************Puntuacion oponente******************************" << endl;
+		}
+        // Recorro todas las fichas del oponente
+        double puntuacion_oponente = 0;
+        puntuacion_color[0] = puntuacion_color[1] = 0;
+        // Recorro colores del oponente.
+        for (int i = 0; i < op_colors.size(); i++)
+        {
+            color c = op_colors[i];
+            meta.col = c;
+            if(verbose)
+            	cout << "/*/*/*/*/Color " << str(c) << "\\*\\*\\*\\*\\"<< endl;
+            // Recorro las fichas de ese color.
+            for (int j = 0; j < num_pieces; j++)
+            {
+            	if(verbose)
+            		cout << "////Pieza " << j << ":" << endl;
+                
+                Box casilla_actual = estado.getBoard().getPiece(c,j);
+            	
+                //Valoro positivamente que la ficha esté cerca de la meta
+                int distancia_meta = estado.distanceToGoal(c, casilla_actual);
+                puntuacion_color[i] += (CASILLASCASAMETA - distancia_meta) * coef_distancia_meta;
+                if(verbose){
+		            cout << "Distancia a meta = " << distancia_meta;
+		            cout << "\tPuntuacion: " << (CASILLASCASAMETA - distancia_meta) * coef_distancia_meta << endl;
+                }
+                if(distancia_meta == 0){
+                	puntuacion_color[i] += coef_meta;	//Bonus por ficha en meta
+                	if(verbose)
+                		cout << "Puntos por estar en meta = " << coef_meta << endl;
+                }
+                else if(distancia_meta < 8){	//Bonus por ficha en camino final
+                	puntuacion_color[i] += coef_pasillo_final;
+                	if(verbose)
+                		cout << "Puntos por estar en pasillo final = " << coef_pasillo_final << endl;
+                }
+                // Valoro positivamente que la ficha esté en casilla segura.
+                if (estado.isSafePiece(c, j))
+                {
+                    puntuacion_color[i] += coef_segura;
+                    if(verbose)
+                    	cout << "Puntos por estar segura = " << coef_segura << endl;
+                }
+                //Valoro positivamente que hayan cerca y por delante fichas del otro jugador
+                //(puede que en el futuro coma)
+                if(verbose)
+            		cout << "Comprobando fichas por delante..." << endl;
+            	for (int dado = 1; dado <= 6; dado++){
+            		Box casilla_delante = estado.computeMove(c, casilla_actual, dado);
+            		if(casilla_delante.type == normal){
+            			vector<pair <color, int>> fichas_casilla = estado.boxState(casilla_delante);
+            			for(int id_ficha = 0; id_ficha < fichas_casilla.size(); id_ficha++){
+            				pair <color, int> pieza = fichas_casilla[id_ficha];
+            				if(pieza.first != op_colors[0] && pieza.first != op_colors[1]){
+            					puntuacion_color[i] += coef_ficha_comible;
+            					if(verbose)
+            						cout << "Puntos por rival cercano (" << str(pieza.first) << "," << pieza.second << ") con dado " << dado << "= " << coef_segura << endl;
+            				}
+            			}
+            		}
+            	}
+                if(verbose)
+                	cout << "Fin fichas por delante..." << endl;
+                
+                //Valoro negativamente que la ficha esté en casa.
+                if (estado.getBoard().getPiece(c, j).type == home)
+                {
+                    puntuacion_color[i] += coef_casa;
+                    if(verbose)
+                    	cout << "Puntos por casilla en casa: " << coef_casa << endl;
+                }
+                //Valoro negativamente que hayan barreras de otros colores entre la pos. actual y meta.
+                vector<color> barreras = estado.anyWall(casilla_actual, meta);
+                for(int i = 0; i < barreras.size(); i++){
+                	if(barreras[i] != op_colors[0] && barreras[i] != op_colors[1]){
+                		puntuacion_color[i] += coef_barrera;
+                		if(verbose)
+                			cout << "Puntos por barrera de color " << str(barreras[i]) << ": " << coef_barrera << endl;
+                	}
+                }
+            }
+            if(verbose)
+            	cout << endl << "*************************************************************************************"<< endl;
+        }
+        if(verbose){
+		    cout << "Puntuacion color 0: " << puntuacion_color[0] << endl;
+		    cout << "Puntuacion color 1: " << puntuacion_color[1] << endl;
+		    cout << "Coeficiente de ponderacion de colores = " << coef_balance_colores << endl;
+		}
+        if(puntuacion_color[0] > puntuacion_color[1]){
+        	puntuacion_color[0] *= coef_balance_colores;
+        	puntuacion_color[1] *= (1-coef_balance_colores);
+        }
+        else{
+        	puntuacion_color[0] *= (1-coef_balance_colores);
+        	puntuacion_color[1] *= coef_balance_colores;
+        }
+        
+        puntuacion_oponente = puntuacion_color[0] + puntuacion_color[1];
+        if(verbose){
+		    cout << "Puntuacion oponente = " << puntuacion_oponente << endl;
+		    cout << "Valoracion final = " << puntuacion_jugador - puntuacion_oponente << endl;
+		}
+        // Devuelvo la puntuación de mi jugador menos la puntuación del oponente.
+        
+        return puntuacion_jugador - puntuacion_oponente;
+    }
+}
+
+
+/*
+Implementar funcion que devuelva cout de la partida
+*/
